@@ -28,21 +28,38 @@ class TextDetails extends StatelessWidget{
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 child: Row(
                   children: [
                     CircleAvatar(
+                      //引用头像圆图
                       backgroundImage: AssetImage(item.imagePath),
                       radius: 20,
                     ),
                     const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //引用昵称
+                      Text(
                         item.nickname,
-                        style: const TextStyle(fontSize: 14),
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold
+                        ),
                       ),
-                    ),
+                      //添加地址文本
+                      const Text('青岛',
+                        style: TextStyle(
+                            fontSize: 12,
+                          color: Colors.grey
+                        ),
+                      )
+                    ],
+                  )
+
                   ],
                 ),
               ),
@@ -51,6 +68,8 @@ class TextDetails extends StatelessWidget{
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
+
+                  //引用价格
                   item.price,
                   style: const TextStyle(fontSize: 20, color: Colors.red),
                 ),
@@ -60,6 +79,8 @@ class TextDetails extends StatelessWidget{
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
+
+                  //引用文本描述
                   item.description,
                   style: const TextStyle(fontSize: 16),
                 ),
@@ -74,10 +95,57 @@ class TextDetails extends StatelessWidget{
                   fit: BoxFit.contain,
                 ),
               ),
+              const SizedBox(height: 10),
+
+
+               Padding(
+                 padding: const EdgeInsets.symmetric(horizontal: 8,),
+
+                 child: Row(
+                   crossAxisAlignment: CrossAxisAlignment.end,//文本水平对齐
+
+                 children:const [
+                   Text(
+                   '浏览量',
+                   style: TextStyle(fontSize: 14,color: Colors.grey),
+                   ),
+                   SizedBox(width: 10,),
+                   Text(
+                     '200',
+                     style: TextStyle(fontSize: 16,color: Colors.grey),
+                   ),
+
+                 ],
+               ),
+              ),
               const SizedBox(height: 20),
+              //水平居中
+              const Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: Text(
+                    '其他推荐',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 30,)
+
+
+
             ],
           ),
+
         ),
+
+
+
+
 
         // 添加底部矩形白色背景及“下单”按钮
         bottomNavigationBar: Container(

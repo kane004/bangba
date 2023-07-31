@@ -35,26 +35,26 @@ final List<ImageItem> _dispatchTexts = [
   ImageItem(
     imagePath: 'images/image1.webp',
     description: '每周六需要一个上门遛狗大学生，30一小时，8小时工作时间',
-    nickname: 'aaa',
+    nickname: '小胡不糊',
     price: '￥100',
   ),
 
   ImageItem(
     imagePath: 'images/image2.webp',
     description: '下周日需要伴娘3名，要求165以上，形象一般即可',
-    nickname: 'bbb',
+    nickname: '小明不明',
     price: '￥200',
   ),
   ImageItem(
     imagePath: 'images/image3.webp',
     description: '找一个小三劝退师，提供小三地址名字5天时间',
-    nickname: 'ccc',
+    nickname: '小蔡不菜',
     price: '￥300',
   ),
   ImageItem(
     imagePath: 'images/image4.webp',
     description: '找一个连麦哄睡包月，要求声音好听，会讲故事，一个月2000',
-    nickname: 'ddd',
+    nickname: '小多不多',
     price: '￥210',
   ),
 
@@ -65,37 +65,37 @@ final List<ImageItem> _imageItems = [
   ImageItem(
     imagePath: 'images/image1.webp',
     description: '同城地接导游带你打卡城市各个角落景点帮忙领东西',
-    nickname: 'aaa',
+    nickname: '小鑫不信',
     price: '￥250',
   ),
   ImageItem(
     imagePath: 'images/image2.webp',
     description: '室内设计装修根据你的要求或者全包设计预算2-10万',
-    nickname: 'bbb',
+    nickname: '小朱不朱',
     price: '￥130',
   ),
   ImageItem(
     imagePath: 'images/image3.webp',
     description: '大学生兼职可以帮忙取快递帮忙表白帮介绍对象根',
-    nickname: 'ccc',
+    nickname: '小艾不爱',
     price: '￥50.0',
   ),
   ImageItem(
     imagePath: 'images/image4.webp',
     description:  '摄影跟拍户外亲自婚纱都可以不同风格都能驾',
-    nickname: 'ddd',
+    nickname: '小肖不笑',
     price: '￥88',
   ),
   ImageItem(
     imagePath: 'images/image5.webp',
     description:  '三亚游艇出海游艇出行跟进拍摄2000左右',
-    nickname: 'eee',
+    nickname: '小夏不下',
     price: '￥500',
   ),
   ImageItem(
     imagePath: 'images/image6.webp',
     description: '兼职伴娘300一天可以帮忙配合表演',
-    nickname: 'fff',
+    nickname: '小顾布谷',
     price: '￥450',
   ),
 
@@ -184,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
      * **/
 
 // 声明一个全局变量，用于存储配置中的图片路径
-String imagePath = 'images/sign.png';// 替换为您的配置图片路径
+//String imagePath = 'images/sign.png';// 替换为您的配置图片路径
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -283,10 +283,10 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 1), // 添加顶部与body之间的间距
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 5.0),
-
-
             ),
             const SizedBox(height: 8.0),
+
+            //主图页
             GridView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -380,7 +380,7 @@ class HomePage extends StatelessWidget {
                             height: 1.2,
                           ),
                         ),
-                        const SizedBox(width: 75.0),
+                        const SizedBox(width: 40.0),
                         Text(
                           item.price,
                           style: const TextStyle(
@@ -485,10 +485,11 @@ class DispatchPage extends StatelessWidget {
                         Text(
                           item.nickname,
                           style: const TextStyle(
-                              fontSize: 16.0
+                              fontSize: 14.0,
+                            color: Colors.black54
                           ),
                         ),
-                        const SizedBox(width: 220.0),
+                        const SizedBox(width: 180.0),
                         //价格
                         Text(
                           item.price,
@@ -526,20 +527,156 @@ class MessagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white, // 设置AppBar的背景设置白色
+        elevation: 0, // 去掉AppBar的底部阴影
+        // centerTitle: _currentIndex == 0 ? false : false, // 将标题居中显示
+        title: Container(
+          width: MediaQuery.of(context).size.width * 0.8,
+          // 设置搜索框的宽度为屏幕宽度的70%
+          height: 40,
+          //搜索框高度
+          alignment: Alignment.bottomRight,
+          // 将搜索框居中
+          decoration: BoxDecoration(
+            color: Colors.grey[200], // 搜索框背景颜色为灰色
+            borderRadius: BorderRadius.circular(256.0), // 圆角边框
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          // 搜索框内部水平边距
+          child: const TextField(
+            decoration: InputDecoration(
+              icon: Icon(Icons.search), // 搜索框前面的搜索图标
+              hintText: '搜索用户|消息', // 搜索框提示文本
+              border: InputBorder.none, // 去掉搜索框的边框
+            ),
+          ),
+        ),
+      ),
+      //滚动部件SingleChildScrollView
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20),
+
+            // 头像和文本
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                
+                children: [
+                  // 圆形头像图片
+                  const Image(
+                    image: AssetImage('images/message2.png'),
+
+                  ),
+                  const SizedBox(width: 20),
+
+                  // 垂直的文本
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        '系统消息',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        '收到来自小小的投诉啦，快点进来看看~',
+                        style: TextStyle(fontSize: 14, color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+          //订单消息
+           Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+             child: Row(
+               children: [
+                 const Image(
+                   image: AssetImage('images/message1.png'),
+                 ),
+                 const SizedBox(width: 20),
+
+                 Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: const [
+                     Text(
+                       '订单消息',
+                       style: TextStyle(
+                         fontSize: 16,
+                         fontWeight: FontWeight.bold,
+                       ),
+                     ),
+                     SizedBox(height: 5),
+                     Text('您有新的订单请查看~',
+                       style: TextStyle(
+                         fontSize: 14,
+                         color: Colors.grey,
+
+                       ),
+                     )
+                   ],
+                 )
+
+               ],
+             ),
+           ),
+
+           //其他消息
+           Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+             child: Row(
+               children:  [
+                 const Image(
+                   image: AssetImage('images/message3.png'),
+                 ),
+                 const SizedBox(width: 20,),
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text('小助手',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 5,),
+                    Text(
+                      '有什么问题都可以问我哦~',
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                      ),
+                    )
+                  ],
+                )
+
+               ],
+             ),
+           ),
+           
+         ],
+       ),
+     ),
+
+
 
 
     );
   }
 }
 
-
-
-      /**
+/**
         我的页面
 
      */
-
 
 
 
@@ -549,17 +686,23 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 30), // 添加顶部与body之间的间距
-          Padding(
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('images/me10.png'), // 替换为您的背景图片路径
+                fit: BoxFit.cover,
+              ),
+            ),
             padding: const EdgeInsets.all(16.0),
+
             child: Row(
               children: const [
                 CircleAvatar(
-                  backgroundImage: AssetImage('images/image4.webp'), // 替换为您的头像图片
+                  backgroundImage: AssetImage('images/image4.webp'), // 替换为您的头像图片路径
                   radius: 30,
                 ),
                 SizedBox(width: 16),
@@ -570,25 +713,104 @@ class ProfilePage extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 20),
+
+          const SizedBox(height: 10),
 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildColumnWithText('0', '收藏', alignment: MainAxisAlignment.start),
-                _buildColumnWithText('0', '浏览历史', alignment: MainAxisAlignment.center),
-                _buildColumnWithText('0', '谁看过我', alignment: MainAxisAlignment.end),
+                _buildColumnWithText('0', '收藏',
+                    alignment: MainAxisAlignment.start),
+                _buildColumnWithText('0', '浏览历史',
+                    alignment: MainAxisAlignment.center),
+                _buildColumnWithText('0', '谁看过我',
+                    alignment: MainAxisAlignment.end),
               ],
             ),
           ),
+
+          const SizedBox(height: 30),
+
+          // 第二个Container，加背景图片
+
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                /**
+                 *    我的订单
+                 *
+                 * **/
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8.0),// 添加圆角边框
+                  ),
+                  // 设置文本icon水平和垂直方向的间距
+                  padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 40.0),
+                  margin: const EdgeInsets.all(10.0),//矩形框和墙边距
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildTextWithIcon('待处理', 'images/order1.png'),
+                      _buildTextWithIcon('进行中', 'images/order2.png'),
+                      _buildTextWithIcon('已完成', 'images/order3.png'),
+                      _buildTextWithIcon('已取消', 'images/order4.png'),
+                      _buildTextWithIcon('全部', 'images/order5.png'),
+                    ],
+                  ),
+                ),
+
+                /**
+                 *    其他服务
+                 *
+                 * **/
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8.0)// 添加圆角边框
+                  ),
+                  // 设置文本icon水平和垂直方向的间距
+                  padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 40.0),
+                  margin: const EdgeInsets.all(10.0),//矩形框和墙边距
+                  child: Column(
+                    children:[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _buildIconWithIcon('我发布的', 'images/me1.png',38),
+                          _buildIconWithIcon('认证中心', 'images/me2.png',38),
+                          _buildIconWithIcon('意见反馈', 'images/me3.png',38),
+                          _buildIconWithIcon('个人设置', 'images/me4.png',38),
+                        ],
+                      ),
+                      const SizedBox(height: 30),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _buildIconWithIcon('举报中心', 'images/me5.png',38),
+                          _buildIconWithIcon('我的排名', 'images/me6.png',38),
+                          _buildIconWithIcon('优惠券', 'images/me7.png',38),
+                          _buildIconWithIcon('支付密码', 'images/me4.png',38),
+                        ],
+                      ),
+
+                    ],
+                  ),
+                ),
+              ],
+            ),
 
         ],
       ),
     );
   }
 
+    /**
+   *    收藏浏览历史谁看过我
+   *
+   * **/
   Widget _buildColumnWithText(String text1, String text2, {MainAxisAlignment alignment = MainAxisAlignment.center}) {
     return Expanded(
       child: Column(
@@ -601,16 +823,52 @@ class ProfilePage extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             text2,
-            style: const TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 14),
           ),
         ],
       ),
     );
   }
+      /**
+   *    订单中心
+   *
+   * **/
+  Widget _buildTextWithIcon(String text, String imagePath) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          imagePath,
+          width: 24, // 设置图片宽度
+          height: 24, // 设置图片高度
+        ),
+        const SizedBox(height: 8),
+        Text(text, style: const TextStyle(fontSize: 14)),
+      ],
+    );
+  }
 
+  /**
+   *    其他服务
+   *
+   * **/
+
+  Widget _buildIconWithIcon(String text, String imagePath,double imageSize) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          imagePath,
+          width: imageSize,
+          height: imageSize,
+        ),
+        const SizedBox(height: 8),
+        Text(text, style: const TextStyle(fontSize: 14,color: Colors.black54)),
+      ],
+    );
+  }
 
 }
-
 
 
 
