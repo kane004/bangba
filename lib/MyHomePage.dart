@@ -1,6 +1,7 @@
 // ignore_for_file: slash_for_doc_comments
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 
 import 'package:kanetest/TextDetails.dart';
@@ -189,85 +190,45 @@ class _MyHomePageState extends State<MyHomePage> {
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+
+
   @override
   Widget build(BuildContext context) {
+    // 使状态栏透明
     return Scaffold(
+
       appBar: AppBar(
         backgroundColor: Colors.green,// 设置AppBar的背景设置绿色
 
         elevation: 0,// 去掉AppBar的底部阴影
-        // centerTitle: _currentIndex == 0 ? false : false, // 将标题居中显示
+        //centerTitle: _currentIndex == 0 ? false : false, // 将标题居中显示
+
         title: Container(
-          width: MediaQuery.of(context).size.width * 0.8, // 设置搜索框的宽度为屏幕宽度的70%
-          height: 40,//搜索框高度
-          alignment: Alignment.centerLeft,// 将搜索框靠左对齐
+          width: MediaQuery.of(context).size.width * 0.7, // 设置搜索框的宽度为屏幕宽度的70%
+          height: 38,//搜索框高度
+          alignment: Alignment.bottomRight,// 将搜索框靠左对齐
           decoration: BoxDecoration(
             color: Colors.grey[200],// 搜索框背景颜色为灰色
             borderRadius: BorderRadius.circular(256.0),// 圆角边框
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),// 搜索框内部水平边距
+
+
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),// 搜索框内部水平边距
           child: const TextField(
             decoration: InputDecoration(
               icon: Icon(Icons.search),// 搜索框前面的搜索图标
               hintText: '输入ID、房间号',// 搜索框提示文本
+              hintStyle: TextStyle(
+                color: Colors.grey,
+                fontSize: 14
+              ),
               border: InputBorder.none,// 去掉搜索框的边框
             ),
           ),
         ),
 
 
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(40.0), // 设置底部PreferredSize的高度
-          child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-          color: Colors.green, // 将五个分类文本的背景颜色设置为绿色
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
-                Text(
-                  '推荐',
-                  style: TextStyle(
-                    fontSize: 22.0, // 设置字体大小为16
-                    height: 2, // 设置行高为1.5倍字体大小
-                    color: Colors.white
-                  ),
-                ),
-                Text(
-                  '关注',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    height: 2,
-                    color: Colors.white
-                  ),
-                ),
-                Text(
-                  '户外',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    height: 2,
-                    color: Colors.white
-                  ),
-                ),
-                Text(
-                  '技能',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    height: 2,
-                      color: Colors.white
-                  ),
-                ),
-                Text(
-                  '休闲',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    height: 2,
-                    color: Colors.white
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+
       ),
 
 
@@ -280,19 +241,18 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 1), // 添加顶部与body之间的间距
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
+              padding: const EdgeInsets.symmetric(horizontal: 3.0),
             ),
-            const SizedBox(height: 8.0),
+            const SizedBox(height: 4.0),//主图与顶部之间间距
 
             //主图页
             GridView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 5.0),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,  //两个网格
                 crossAxisSpacing: 6.0,//横轴间距
-                mainAxisSpacing: 8.0,//纵轴间距
+                mainAxisSpacing: 7.0,//纵轴间距
                 childAspectRatio: 0.6,//宽高比例
               ),
               itemCount: _imageItems.length,// 图片项的数量
@@ -353,7 +313,7 @@ class HomePage extends StatelessWidget {
                     Text(
                       item.description,
                       style: const TextStyle(
-                          fontSize: 14.0,
+                          fontSize: 13.0,
                           height: 1.2,
                           fontWeight: FontWeight.w500
                       ),
@@ -369,23 +329,24 @@ class HomePage extends StatelessWidget {
                         //头像
                         CircleAvatar(
                           backgroundImage: AssetImage(item.imagePath),
-                          radius: 15, // 设置圆形头像的半径
+                          radius: 13, // 设置圆形头像的半径
                         ),
                         const SizedBox(width: 8.0),
                         //昵称
                         Text(
                           item.nickname,
                           style: const TextStyle(
-                            fontSize: 14.0,
+                            fontSize: 12.0,
                             height: 1.2,
+                            color: Colors.black45
                           ),
                         ),
                         const SizedBox(width: 40.0),
                         Text(
                           item.price,
                           style: const TextStyle(
-                            fontSize: 18.0,
-                            height: 1.2,
+                            fontSize: 15.0,
+                            height: 1.4,
                             color: Colors.red,
                           ),
                         )
@@ -399,6 +360,8 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                  );
+
+
                 },
              ),
 
@@ -410,6 +373,7 @@ class HomePage extends StatelessWidget {
 
 
     );
+
   }
 }
 
@@ -429,7 +393,7 @@ class DispatchPage extends StatelessWidget {
 
         title: const Text(
           '派单',
-          style: TextStyle(color: Colors.black, fontSize: 30.0),
+          style: TextStyle(color: Colors.black, fontSize: 25.0),
           // 设置标题字体颜色为黑色，字体大小为30
         ),
         centerTitle: false, // 将标题居左显示
@@ -467,7 +431,7 @@ class DispatchPage extends StatelessWidget {
 
                     Text(
                       item.description,// 使用ImageItem对象中的description作为标题文本
-                      style: const TextStyle(fontSize: 16.0),
+                      style: const TextStyle(fontSize: 15.0),
                     ),
                     const SizedBox(height: 32.0),
 
@@ -485,16 +449,16 @@ class DispatchPage extends StatelessWidget {
                         Text(
                           item.nickname,
                           style: const TextStyle(
-                              fontSize: 14.0,
+                              fontSize: 13.0,
                             color: Colors.black54
                           ),
                         ),
-                        const SizedBox(width: 180.0),
+                        const SizedBox(width: 140.0),
                         //价格
                         Text(
                           item.price,
                           style: const TextStyle(
-                              fontSize: 18.0,
+                              fontSize: 14.0,
                               color: Colors.red
                           ),
                         )
@@ -528,6 +492,7 @@ class MessagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white, // 设置AppBar的背景设置白色
         elevation: 0, // 去掉AppBar的底部阴影
@@ -548,75 +513,90 @@ class MessagePage extends StatelessWidget {
           child: const TextField(
             decoration: InputDecoration(
               icon: Icon(Icons.search), // 搜索框前面的搜索图标
-              hintText: '搜索用户|消息', // 搜索框提示文本
+              hintText: '搜索用户|消息',
+              hintStyle: TextStyle(
+                fontSize: 14,
+                color: Colors.black38
+              ),// 搜索框提示文本
               border: InputBorder.none, // 去掉搜索框的边框
             ),
           ),
         ),
       ),
       //滚动部件SingleChildScrollView
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 20),
+      body: const SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 16),
 
-            // 头像和文本
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Row(
-                
-                children: [
-                  // 圆形头像图片
-                  const Image(
-                    image: AssetImage('images/message2.png'),
+              // 头像和文本
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Row(
 
-                  ),
-                  const SizedBox(width: 20),
+                  children: [
+                    // 圆形头像图片
+                    Image(
+                      image: AssetImage('images/message2.png'),
+                      width: 50,
+                      height: 50,
 
-                  // 垂直的文本
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        '系统消息',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        '收到来自小小的投诉啦，快点进来看看~',
-                        style: TextStyle(fontSize: 14, color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                    SizedBox(width: 20),
+
+                    // 垂直的文本
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '系统消息',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          '收到来自小小的投诉啦来看看~',
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
 
           //订单消息
            Padding(
-               padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+               padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
              child: Row(
                children: [
-                 const Image(
+                 Image(
                    image: AssetImage('images/message1.png'),
+                   width: 50,
+                   height: 50,
+
                  ),
-                 const SizedBox(width: 20),
+                 SizedBox(width: 20),
 
                  Column(
                    crossAxisAlignment: CrossAxisAlignment.start,
-                   children: const [
+                   children: [
                      Text(
                        '订单消息',
                        style: TextStyle(
-                         fontSize: 16,
+                         fontSize: 14,
                          fontWeight: FontWeight.bold,
                        ),
                      ),
                      SizedBox(height: 5),
                      Text('您有新的订单请查看~',
                        style: TextStyle(
-                         fontSize: 14,
+                         fontSize: 12,
                          color: Colors.grey,
 
                        ),
@@ -630,20 +610,22 @@ class MessagePage extends StatelessWidget {
 
            //其他消息
            Padding(
-               padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+               padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
              child: Row(
                children:  [
-                 const Image(
+                 Image(
                    image: AssetImage('images/message3.png'),
+                   width: 50,
+                   height: 50,
                  ),
-                 const SizedBox(width: 20,),
+                 SizedBox(width: 20,),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text('小助手',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -651,7 +633,7 @@ class MessagePage extends StatelessWidget {
                     Text(
                       '有什么问题都可以问我哦~',
                       style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 12,
                           color: Colors.grey,
                       ),
                     )
@@ -668,8 +650,9 @@ class MessagePage extends StatelessWidget {
 
 
 
+      );
 
-    );
+
   }
 }
 
@@ -686,7 +669,8 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: SingleChildScrollView(
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 30), // 添加顶部与body之间的间距
@@ -699,16 +683,16 @@ class ProfilePage extends StatelessWidget {
             ),
             padding: const EdgeInsets.all(16.0),
 
-            child: Row(
-              children: const [
+            child: const Row(
+              children: [
                 CircleAvatar(
                   backgroundImage: AssetImage('images/image4.webp'), // 替换为您的头像图片路径
-                  radius: 30,
+                  radius: 28,
                 ),
                 SizedBox(width: 16),
                 Text(
                   '笑小小', // 替换为您的昵称
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 16),
                 ),
               ],
             ),
@@ -779,20 +763,20 @@ class ProfilePage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          _buildIconWithIcon('我发布的', 'images/me1.png',38),
-                          _buildIconWithIcon('认证中心', 'images/me2.png',38),
-                          _buildIconWithIcon('意见反馈', 'images/me3.png',38),
-                          _buildIconWithIcon('个人设置', 'images/me4.png',38),
+                          _buildIconWithIcon('我发布的', 'images/me1.png',32),
+                          _buildIconWithIcon('认证中心', 'images/me2.png',32),
+                          _buildIconWithIcon('意见反馈', 'images/me3.png',32),
+                          _buildIconWithIcon('个人设置', 'images/me4.png',32),
                         ],
                       ),
                       const SizedBox(height: 30),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          _buildIconWithIcon('举报中心', 'images/me5.png',38),
-                          _buildIconWithIcon('我的排名', 'images/me6.png',38),
-                          _buildIconWithIcon('优惠券', 'images/me7.png',38),
-                          _buildIconWithIcon('支付密码', 'images/me4.png',38),
+                          _buildIconWithIcon('举报中心', 'images/me5.png',32),
+                          _buildIconWithIcon('我的排名', 'images/me6.png',32),
+                          _buildIconWithIcon('优惠券', 'images/me7.png',32),
+                          _buildIconWithIcon('支付密码', 'images/me4.png',32),
                         ],
                       ),
 
@@ -804,6 +788,7 @@ class ProfilePage extends StatelessWidget {
 
         ],
       ),
+    ),
     );
   }
 
@@ -818,12 +803,12 @@ class ProfilePage extends StatelessWidget {
         children: [
           Text(
             text1,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 16 ),
           ),
           const SizedBox(height: 8),
           Text(
             text2,
-            style: const TextStyle(fontSize: 14),
+            style: const TextStyle(fontSize: 12),
           ),
         ],
       ),
@@ -839,11 +824,15 @@ class ProfilePage extends StatelessWidget {
       children: [
         Image.asset(
           imagePath,
-          width: 24, // 设置图片宽度
+          width: 48, // 设置图片宽度
           height: 24, // 设置图片高度
         ),
-        const SizedBox(height: 8),
-        Text(text, style: const TextStyle(fontSize: 14)),
+        const SizedBox(height: 4),
+        Text(text, style: const TextStyle(
+            fontSize: 12,
+          color: Colors.black87
+        )
+        ),
       ],
     );
   }
@@ -862,8 +851,8 @@ class ProfilePage extends StatelessWidget {
           width: imageSize,
           height: imageSize,
         ),
-        const SizedBox(height: 8),
-        Text(text, style: const TextStyle(fontSize: 14,color: Colors.black54)),
+        const SizedBox(height: 4),
+        Text(text, style: const TextStyle(fontSize: 12,color: Colors.black54)),
       ],
     );
   }
@@ -874,6 +863,7 @@ class ProfilePage extends StatelessWidget {
 
 
 void main() {
+
   runApp(const MaterialApp(
     title: 'Home App',
     home: MyHomePage(),

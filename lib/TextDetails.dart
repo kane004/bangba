@@ -36,7 +36,7 @@ class TextDetails extends StatelessWidget{
                     CircleAvatar(
                       //引用头像圆图
                       backgroundImage: AssetImage(item.imagePath),
-                      radius: 20,
+                      radius: 24,
                     ),
                     const SizedBox(width: 12),
                   Column(
@@ -46,7 +46,7 @@ class TextDetails extends StatelessWidget{
                       Text(
                         item.nickname,
                         style: const TextStyle(
-                            fontSize: 16,
+                            fontSize: 13,
                             fontWeight: FontWeight.bold
                         ),
                       ),
@@ -71,7 +71,10 @@ class TextDetails extends StatelessWidget{
 
                   //引用价格
                   item.price,
-                  style: const TextStyle(fontSize: 20, color: Colors.red),
+                  style: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.red
+                  ),
                 ),
               ),
 
@@ -82,7 +85,7 @@ class TextDetails extends StatelessWidget{
 
                   //引用文本描述
                   item.description,
-                  style: const TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 14),
                 ),
               ),
 
@@ -98,13 +101,13 @@ class TextDetails extends StatelessWidget{
               const SizedBox(height: 10),
 
 
-               Padding(
-                 padding: const EdgeInsets.symmetric(horizontal: 8,),
+               const Padding(
+                 padding: EdgeInsets.symmetric(horizontal: 8,),
 
                  child: Row(
                    crossAxisAlignment: CrossAxisAlignment.end,//文本水平对齐
 
-                 children:const [
+                 children:[
                    Text(
                    '浏览量',
                    style: TextStyle(fontSize: 14,color: Colors.grey),
@@ -112,7 +115,7 @@ class TextDetails extends StatelessWidget{
                    SizedBox(width: 10,),
                    Text(
                      '200',
-                     style: TextStyle(fontSize: 16,color: Colors.grey),
+                     style: TextStyle(fontSize: 14,color: Colors.grey),
                    ),
 
                  ],
@@ -149,11 +152,14 @@ class TextDetails extends StatelessWidget{
 
         // 添加底部矩形白色背景及“下单”按钮
         bottomNavigationBar: Container(
-          width: double.infinity,
+          width: 100,
+          height: 80,
           decoration: const BoxDecoration(
             color: Colors.white,
+            //圆角
             borderRadius: BorderRadius.vertical(top: Radius.circular(8.0)),
           ),
+          //内边距
           padding: const EdgeInsets.all(16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end, // 将两个按钮靠右显示
@@ -170,10 +176,11 @@ class TextDetails extends StatelessWidget{
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
                 ),
                 child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                  //矩形长短
+                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
                   child: Text(
-                    '聊天',
-                    style: TextStyle(fontSize: 18),
+                    '问问TA',
+                    style: TextStyle(fontSize: 16),
                   ),
                 ),
               ),
@@ -189,10 +196,10 @@ class TextDetails extends StatelessWidget{
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
                 ),
                 child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                  padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 14.0),
                   child: Text(
                     '下单',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 16),
                   ),
                 ),
               ),

@@ -85,18 +85,15 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            const SizedBox(height: 1.0),
 
             Center(
               child: Image.asset(
                 'images/login.png', // 替换为你的 logo 图片路径
-                width: 100, // 根据需要设置图片的宽度
-                height: 100, // 根据需要设置图片的高度
+                width: 80, // 根据需要设置图片的宽度
+                height: 80, // 根据需要设置图片的高度
               ),
             ),
-
-            const SizedBox(height: 8.0),
-
+            const SizedBox(height: 5),
             const Center(
               child: Text(
                 '帮呗',
@@ -120,10 +117,14 @@ class _LoginPageState extends State<LoginPage> {
                   Expanded(
                     child: TextField(
                       controller: _usernameController,
-                      style: const TextStyle(color: Colors.black26),
+                      style: const TextStyle(color: Colors.black12),
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: '请输入手机号',
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16
+                        )
                       ),
                     ),
                   ),
@@ -139,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 8.0),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               decoration: BoxDecoration(
@@ -153,11 +154,15 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                   hintText: '请输入验证码',
+                  hintStyle: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 16
+                  )
                 ),
               ),
             ),
 
-            const SizedBox(height: 64.0),
+            const SizedBox(height: 32.0),
             ElevatedButton(
               onPressed: _login,
               style: ElevatedButton.styleFrom(
@@ -166,11 +171,17 @@ class _LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 primary: Colors.green,
+                elevation: 0,
               ),
-              child: const Text('登录', style: TextStyle(fontSize: 18.0)),
+              child: const Text('登录',
+                  style: TextStyle(
+                  fontSize: 18.0,
+
+                  )
+              ),
             ),
 
-            const SizedBox(height: 8.0),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -187,10 +198,10 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   ),
                 ),
-                const Text('我已阅读并同意', style: TextStyle(color: Colors.black45)),
-                const Text('《服务协议》', style:TextStyle(color: Colors.blue)),
-                const Text('和', style: TextStyle(color: Colors.black45)),
-                const Text('《隐私政策》', style:TextStyle(color: Colors.blue)),
+                const Text('我已阅读并同意', style: TextStyle(fontSize: 12,color: Colors.black45)),
+                const Text('《服务协议》', style:TextStyle(fontSize: 12,color: Colors.blue)),
+                const Text('和', style: TextStyle(fontSize: 12,color: Colors.black45)),
+                const Text('《隐私政策》', style:TextStyle(fontSize: 12,color: Colors.blue)),
               ],
             ),
 
@@ -207,7 +218,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 48.0),
+            const SizedBox(height: 16.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -234,7 +245,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 8.0),
+
           ],
         ),
       ),
