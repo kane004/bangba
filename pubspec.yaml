@@ -13,10 +13,22 @@ dependencies:
   flutter:
     sdk: flutter
 
+  http: ^0.13.3
+  image_picker: ^0.8.4+1
+  dio: ^4.0.4
+
+
+
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+
+
+
+
 
 
 
@@ -51,3 +63,14 @@ flutter:
     - images/message1.png
     - images/message2.png
     - images/message3.png
+    - images/bottom1.png
+    - images/bottom2.png
+    - images/bottom3.png
+    - images/bottom4.png
+    - images/grey1.png
+    - images/grey2.png
+    - images/grey3.png
+    - images/grey4.png
+    - images/HomeDetails.png
+    - images/woman.png
+    - images/telegram.png

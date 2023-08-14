@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'HomePageDetails.dart';
+import 'addContent.dart'; // 引入新增内容页面
 
 
 import 'package:kanetest/TextDetails.dart';
@@ -157,19 +159,35 @@ class _MyHomePageState extends State<MyHomePage> {
         onTap: _onBottomNavBarTapped, // 将导航栏的点击事件与底部导航栏回调方法关联
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: ImageIcon(
+              AssetImage('images/bottom1.png'),
+              size: 24,
+
+            ),
             label: '首页',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.assignment),
+            icon: ImageIcon(
+              AssetImage('images/bottom2.png'),
+              size: 24,
+
+            ),
             label: '派单',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message),
+            icon: ImageIcon(
+              AssetImage('images/bottom3.png'),
+              size: 24,
+
+            ),
             label: '消息',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: ImageIcon(
+              AssetImage('images/bottom4.png'),
+              size: 24,
+
+            ),
             label: '我的',
           ),
         ],
@@ -196,13 +214,34 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // 使状态栏透明
     return Scaffold(
-
       appBar: AppBar(
-        backgroundColor: Colors.green,// 设置AppBar的背景设置绿色
-
+        backgroundColor: Colors.grey[100],// 设置AppBar的背景设置绿色
         elevation: 0,// 去掉AppBar的底部阴影
         //centerTitle: _currentIndex == 0 ? false : false, // 将标题居中显示
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.center, // 水平居中
+          children: [
+            Text(
+              '推荐',
+              style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Text(
+              '同城',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.black45,
+              ),
+            )
+          ],
+        ),
 
+        /**
         title: Container(
           width: MediaQuery.of(context).size.width * 0.7, // 设置搜索框的宽度为屏幕宽度的70%
           height: 38,//搜索框高度
@@ -227,7 +266,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
 
-
+   */
 
       ),
 
@@ -317,6 +356,8 @@ class HomePage extends StatelessWidget {
                           height: 1.2,
                           fontWeight: FontWeight.w500
                       ),
+                      maxLines: 2, // 控制最大行数
+                      overflow: TextOverflow.ellipsis, // 超过时显示省略号
                     ),
                     const SizedBox(height: 12.0),
 
@@ -370,7 +411,19 @@ class HomePage extends StatelessWidget {
         )
       ),
 
-
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // 点击按钮跳转到新页面
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AddContentPage(), // 新页面的构建方法
+            ),
+          );
+        },
+        backgroundColor: Colors.green,
+        child: const Icon(Icons.add),
+      ),
 
     );
 
@@ -674,27 +727,60 @@ class ProfilePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 30), // 添加顶部与body之间的间距
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('images/me10.png'), // 替换为您的背景图片路径
-                fit: BoxFit.cover,
+          InkWell(
+            onTap:(){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePageDetails(
+                    avatarImagePath: 'images/image4.webp',
+                    nickname: '也许这就是哎',
+                    id: '41331',
+                  ))
+              );
+            },
+          child:  Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('images/me10.png'), // 替换为您的背景图片路径
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            padding: const EdgeInsets.all(16.0),
-
-            child: const Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: AssetImage('images/image4.webp'), // 替换为您的头像图片路径
-                  radius: 28,
-                ),
-                SizedBox(width: 16),
-                Text(
-                  '笑小小', // 替换为您的昵称
-                  style: TextStyle(fontSize: 16),
-                ),
-              ],
+              padding: const EdgeInsets.all(16.0),
+              child: const Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: AssetImage('images/image4.webp'), // 替换为您的头像图片路径
+                    radius: 28,
+                  ),
+                  SizedBox(width: 16), // 增加头像和文本之间的间距
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '也许这就是哎', // 替换为您的昵称
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      SizedBox(height: 8),
+                      Row(
+                          children: [
+                            Text(
+                              'id:', // 添加您的其他文本
+                              style: TextStyle(
+                                  fontSize: 14, color: Colors.grey
+                              ),
+                            ),
+                            SizedBox(width: 6,),
+                            Text(
+                              '41331',
+                              style: TextStyle(fontSize: 14, color: Colors.grey
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                  ),
+                ],
+              ),
             ),
           ),
 
