@@ -180,15 +180,19 @@ class _HomePageDetailsState extends State<HomePageDetails> {
 
                    ],
                   ),
-
-
+                  
                 ],
               ),
             ),
           ),
+          
+
+          
           // 添加其他需要的部件
         ],
       ),
+      
+      
     );
   }
 

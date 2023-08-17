@@ -37,7 +37,7 @@ final List<ImageItem> _dispatchTexts = [
 
   ImageItem(
     imagePath: 'images/image1.webp',
-    description: '每周六需要一个上门遛狗大学生，30一小时，8小时工作时间',
+    description: '每周六需要一个上门遛狗大学生，30一小时，8小时工作时间提供假日、工作日、出差旅游，上门喂养猫咪、遛狗及其他小宠物服务。上门会自带手套，口罩，鞋套，垃圾袋。',
     nickname: '小胡不糊',
     price: '￥100',
   ),
@@ -241,32 +241,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
 
-        /**
-        title: Container(
-          width: MediaQuery.of(context).size.width * 0.7, // 设置搜索框的宽度为屏幕宽度的70%
-          height: 38,//搜索框高度
-          alignment: Alignment.bottomRight,// 将搜索框靠左对齐
-          decoration: BoxDecoration(
-            color: Colors.grey[200],// 搜索框背景颜色为灰色
-            borderRadius: BorderRadius.circular(256.0),// 圆角边框
-          ),
 
-
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),// 搜索框内部水平边距
-          child: const TextField(
-            decoration: InputDecoration(
-              icon: Icon(Icons.search),// 搜索框前面的搜索图标
-              hintText: '输入ID、房间号',// 搜索框提示文本
-              hintStyle: TextStyle(
-                color: Colors.grey,
-                fontSize: 14
-              ),
-              border: InputBorder.none,// 去掉搜索框的边框
-            ),
-          ),
-        ),
-
-   */
 
       ),
 
@@ -456,70 +431,69 @@ class DispatchPage extends StatelessWidget {
 
 
       body: Container(
-        color: Colors.grey[200], // 设置页面背景色为灰色
+        color: Colors.grey[200],
         child: ListView.builder(
-          // 设置ListView的水平和垂直内边距
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-
-          itemCount: _dispatchTexts.length,// 列表项的数量
+          padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
+          itemCount: _dispatchTexts.length,
           itemBuilder: (context, index) {
-            // 获取对应索引位置的ImageItem对象
             final ImageItem item = _dispatchTexts[index];
-            return Padding(
-              // 设置列表项的垂直内边距
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
-
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,// 设置容器的背景色为白色
-                  borderRadius: BorderRadius.circular(8.0),// 设置容器的圆角边框
-                ),
-                padding: const EdgeInsets.all(24.0),// 设置容器内部的全局内边距
-                child: Column(
-                  // 将子组件在水平方向上左对齐
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-
-                    const SizedBox(height: 0.5),
-
-                    Text(
-                      item.description,// 使用ImageItem对象中的description作为标题文本
-                      style: const TextStyle(fontSize: 15.0),
-                    ),
-                    const SizedBox(height: 32.0),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-
-                        //圆形头像
-                        CircleAvatar(
-                          backgroundImage: AssetImage(item.imagePath),
-                          radius: 15, // 设置圆形头像的半径
-                        ),
-                        const SizedBox(width: 8.0),
-                        //昵称
-                        Text(
-                          item.nickname,
-                          style: const TextStyle(
-                              fontSize: 13.0,
-                            color: Colors.black54
+            return GestureDetector(
+              onTap: () {
+                _showDialog(context, item);
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 0.5),
+                      Text(
+                        item.description,
+                        maxLines: 2,// 设置最大显示行数为2
+                        overflow: TextOverflow.ellipsis,// 超过2行时使用省略号
+                        style: const TextStyle(fontSize: 15.0),
+                      ),
+                      const SizedBox(height: 40.0), // 调整上下间距
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: AssetImage(item.imagePath),
+                            radius: 15,
                           ),
-                        ),
-                        const SizedBox(width: 140.0),
-                        //价格
-                        Text(
-                          item.price,
-                          style: const TextStyle(
-                              fontSize: 14.0,
-                              color: Colors.red
+                          const SizedBox(width: 8.0),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item.nickname,
+                                  style: const TextStyle(
+                                    fontSize: 13.0,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                                const SizedBox(height: 4.0), // 调整上下间距
+
+                              ],
+                            ),
                           ),
-                        )
-                      ],
-                    )
-
-
-                  ],
+                          Text(
+                            item.price,
+                            style: const TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -527,9 +501,100 @@ class DispatchPage extends StatelessWidget {
         ),
       ),
 
+
     );
   }
 }
+
+void _showDialog(BuildContext context, ImageItem item) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        content: SizedBox(
+          height: 400,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(item.description),
+              const SizedBox(height: 40.0),
+              Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(item.price, style: TextStyle(fontSize: 16.0, color: Colors.red)),
+                  Row(
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style: TextButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(color: Colors.black12),
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                        ),
+                        child: const Text('取消', style: TextStyle(color: Colors.black87)),
+                      ),
+                      const SizedBox(width: 10.0),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(); // 关闭弹窗
+                          _showSuccessDialog(context); // 显示申请成功的弹窗
+                        },
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                        ),
+                        child: const Text('申请', style: TextStyle(color: Colors.white)),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        actions: [],
+      );
+    },
+  );
+}
+
+void _showSuccessDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.check_circle,
+              color: Colors.green,
+              size: 50.0,
+            ),
+            SizedBox(height: 16.0),
+            Text('申请成功！', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('关闭'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
 
 
 

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kanetest/HomePageDetails.dart';
+import 'package:kanetest/timePay.dart';
 
 import 'MyHomePage.dart';
 
@@ -28,6 +30,7 @@ class TextDetails extends StatelessWidget{
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
+              
 
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -38,7 +41,9 @@ class TextDetails extends StatelessWidget{
                       backgroundImage: AssetImage(item.imagePath),
                       radius: 24,
                     ),
+
                     const SizedBox(width: 12),
+
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -166,7 +171,7 @@ class TextDetails extends StatelessWidget{
             children: [
               ElevatedButton(
                 onPressed: () {
-                  // 在此处添加处理下单按钮点击事件的逻辑
+                  // 在此处添加处理聊天按钮点击事件的逻辑
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.lightBlue,
@@ -185,24 +190,37 @@ class TextDetails extends StatelessWidget{
                 ),
               ),
               const SizedBox(width: 8), // 调整按钮之间的间距
-              ElevatedButton(
-                onPressed: () {
-                  // 在此处添加处理聊天按钮点击事件的逻辑
+
+
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TimePayPage(
+                        imagePath: item.imagePath,
+                        nickname: item.nickname,
+                        price: item.price,
+                      ),
+                    ),
+                  );
                 },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
-                  onPrimary: Colors.white,
-                  elevation: 0, // 去掉阴影效果
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 14.0),
-                  child: Text(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 12.0),
+                  child: const Text(
                     '下单',
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ),
-              ),
+              )
+
+
+
+
             ],
           ),
         ),
