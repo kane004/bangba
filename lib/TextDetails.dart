@@ -146,6 +146,8 @@ class TextDetails extends StatelessWidget{
 
 
 
+
+
             ],
           ),
 

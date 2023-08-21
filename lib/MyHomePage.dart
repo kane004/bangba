@@ -357,7 +357,8 @@ class HomePage extends StatelessWidget {
                             color: Colors.black45
                           ),
                         ),
-                        const SizedBox(width: 40.0),
+
+                        const Spacer(),
                         Text(
                           item.price,
                           style: const TextStyle(
@@ -517,60 +518,63 @@ void _showDialog(BuildContext context, ImageItem item) {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(item.description),
-              const SizedBox(height: 40.0),
-              Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(item.price, style: TextStyle(fontSize: 16.0, color: Colors.red)),
-                  Row(
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        style: TextButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            side: const BorderSide(color: Colors.black12),
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                        ),
-                        child: const Text('取消', style: TextStyle(color: Colors.black87)),
-                      ),
-                      const SizedBox(width: 10.0),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop(); // 关闭弹窗
-                          _showSuccessDialog(context); // 显示申请成功的弹窗
-                        },
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                        ),
-                        child: const Text('申请', style: TextStyle(color: Colors.white)),
-                      ),
-                    ],
+                  Text(
+                    item.price,
+                    style: const TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // 关闭弹窗
+                    },
+                    icon: const Icon(Icons.close,size: 20,color: Colors.grey,),
                   ),
                 ],
+              ),
+              const SizedBox(height: 20),
+              Text(item.description),
+
+              const Spacer(),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // 关闭弹窗
+                    _showSuccessDialog(context); // 显示申请成功的弹窗
+                  },
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 16.0),
+                    backgroundColor: Colors.green,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                    ),
+                  ),
+                  child: const Text('申请', style: TextStyle(color: Colors.white)),
+                ),
               ),
             ],
           ),
         ),
-        actions: [],
+        actions: const [],
       );
     },
   );
 }
+
+
 
 void _showSuccessDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        content: Column(
+        content: const Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
@@ -804,12 +808,7 @@ class ProfilePage extends StatelessWidget {
               );
             },
           child:  Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('images/me10.png'), // 替换为您的背景图片路径
-                  fit: BoxFit.cover,
-                ),
-              ),
+
               padding: const EdgeInsets.all(16.0),
               child: const Row(
                 children: [
@@ -873,19 +872,32 @@ class ProfilePage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /**
-                 *    我的订单
-                 *
-                 * **/
+
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
+
                     borderRadius: BorderRadius.circular(8.0),// 添加圆角边框
                   ),
                   // 设置文本icon水平和垂直方向的间距
-                  padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 40.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30.0),
                   margin: const EdgeInsets.all(10.0),//矩形框和墙边距
-                  child: Row(
+
+                  child:Column(
+                  children:[
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child:   Text('我的订单',style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87
+
+                      )
+                      ),
+
+                    ),
+                  SizedBox(height: 30,),
+                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       _buildTextWithIcon('待处理', 'images/order1.png'),
@@ -894,6 +906,8 @@ class ProfilePage extends StatelessWidget {
                       _buildTextWithIcon('已取消', 'images/order4.png'),
                       _buildTextWithIcon('全部', 'images/order5.png'),
                     ],
+                  ),
+        ],
                   ),
                 ),
 
@@ -907,10 +921,22 @@ class ProfilePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.0)// 添加圆角边框
                   ),
                   // 设置文本icon水平和垂直方向的间距
-                  padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 40.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30.0),
                   margin: const EdgeInsets.all(10.0),//矩形框和墙边距
                   child: Column(
                     children:[
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child:   Text('其他服务',style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87
+
+                        )
+                        ),
+
+                      ),
+                    const SizedBox(height: 30),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
