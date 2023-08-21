@@ -244,148 +244,139 @@ class HomePage extends StatelessWidget {
 
 
       ),
-
-
       body: DecoratedBox(
-       decoration: BoxDecoration(
-         color: Colors.grey[100], // 设置灰色背景
-        ),
+          decoration: BoxDecoration(
+            color: Colors.grey[100], // 设置灰色背景
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                ),
+                const SizedBox(height: 4.0), //主图与顶部之间间距
 
-     child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 3.0),
-            ),
-            const SizedBox(height: 4.0),//主图与顶部之间间距
+                //主图页
+                GridView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, //两个网格
+                    crossAxisSpacing: 6.0, //横轴间距
+                    mainAxisSpacing: 7.0, //纵轴间距
+                    childAspectRatio: 0.6, //宽高比例
+                  ),
+                  itemCount: _imageItems.length,
+                  // 图片项的数量
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  // 禁用GridView的滚动
+                  itemBuilder: (context, index) {
+                    final ImageItem item =
+                        _imageItems[index]; // 获取当前索引处的ImageItem对象
 
-            //主图页
-            GridView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,  //两个网格
-                crossAxisSpacing: 6.0,//横轴间距
-                mainAxisSpacing: 7.0,//纵轴间距
-                childAspectRatio: 0.6,//宽高比例
-              ),
-              itemCount: _imageItems.length,// 图片项的数量
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),// 禁用GridView的滚动
-              itemBuilder: (context, index) {
-                final ImageItem item = _imageItems[index]; // 获取当前索引处的ImageItem对象
+                    //点击跳转新页面
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TextDetails(item: item),
+                          ),
+                        );
+                      },
 
-                //点击跳转新页面
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>  TextDetails(item: item),
+                      //body图片文本
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.white, // 设置整块的背景颜色为白色
+
+                          //borderRadius: BorderRadius.circular(8.0), // 设置圆角半径
+
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(8.0), // 设置左下角为圆角
+                            bottomRight: Radius.circular(8.0), // 设置右下角为圆角
+                          ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            //主图片
+
+                            Expanded(
+                              child: ClipRRect(
+                                //borderRadius: BorderRadius.circular(8.0), // 设置圆角半径
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(0), // 设置左上角为直角
+                                  topRight: Radius.circular(0), // 设置右上角为直角
+                                ),
+
+                                child: FractionallySizedBox(
+                                  widthFactor: 1.0,
+                                  heightFactor: 1,
+                                  child: Image.asset(
+                                    item.imagePath,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 8.0),
+                            //主文本内容
+                            Text(
+                              item.description,
+                              style: const TextStyle(
+                                  fontSize: 13.0,
+                                  height: 1.2,
+                                  fontWeight: FontWeight.w500),
+                              maxLines: 2, // 控制最大行数
+                              overflow: TextOverflow.ellipsis, // 超过时显示省略号
+                            ),
+                            const SizedBox(height: 12.0),
+
+                            //头像和昵称
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                //头像
+                                CircleAvatar(
+                                  backgroundImage: AssetImage(item.imagePath),
+                                  radius: 13, // 设置圆形头像的半径
+                                ),
+                                const SizedBox(width: 8.0),
+                                //昵称
+                                Text(
+                                  item.nickname,
+                                  style: const TextStyle(
+                                      fontSize: 12.0,
+                                      height: 1.2,
+                                      color: Colors.black45),
+                                ),
+
+                                const Spacer(),
+                                Text(
+                                  item.price,
+                                  style: const TextStyle(
+                                    fontSize: 15.0,
+                                    height: 1.4,
+                                    color: Colors.red,
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     );
+
+
                   },
-
-                  //body图片文本
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white, // 设置整块的背景颜色为白色
-
-                      //borderRadius: BorderRadius.circular(8.0), // 设置圆角半径
-
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(8.0), // 设置左下角为圆角
-                        bottomRight: Radius.circular(8.0), // 设置右下角为圆角
-                      ),
-
-                    ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    //主图片
-
-                    Expanded(
-                      child: ClipRRect(
-                      //borderRadius: BorderRadius.circular(8.0), // 设置圆角半径
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(0), // 设置左上角为直角
-                          topRight: Radius.circular(0), // 设置右上角为直角
-                        ),
-
-                      child: FractionallySizedBox(
-                        widthFactor: 1.0,
-                        heightFactor: 1,
-                        child: Image.asset(
-                          item.imagePath,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                    const SizedBox(height: 8.0),
-                    //主文本内容
-                    Text(
-                      item.description,
-                      style: const TextStyle(
-                          fontSize: 13.0,
-                          height: 1.2,
-                          fontWeight: FontWeight.w500
-                      ),
-                      maxLines: 2, // 控制最大行数
-                      overflow: TextOverflow.ellipsis, // 超过时显示省略号
-                    ),
-                    const SizedBox(height: 12.0),
-
-                    //头像和昵称
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-
-
-                      children: [
-                        //头像
-                        CircleAvatar(
-                          backgroundImage: AssetImage(item.imagePath),
-                          radius: 13, // 设置圆形头像的半径
-                        ),
-                        const SizedBox(width: 8.0),
-                        //昵称
-                        Text(
-                          item.nickname,
-                          style: const TextStyle(
-                            fontSize: 12.0,
-                            height: 1.2,
-                            color: Colors.black45
-                          ),
-                        ),
-
-                        const Spacer(),
-                        Text(
-                          item.price,
-                          style: const TextStyle(
-                            fontSize: 15.0,
-                            height: 1.4,
-                            color: Colors.red,
-                          ),
-                        )
-                       ],
-
-
-                        )
-
-                      ],
-
-                    ),
-                  ),
-                 );
-
-
-                },
-             ),
-
-           ],
-          ),
-        )
+                ),
+              ],
+            ),
+          )
       ),
+
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -400,6 +391,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.green,
         child: const Icon(Icons.add),
       ),
+
 
     );
 
@@ -962,6 +954,150 @@ class ProfilePage extends StatelessWidget {
                 ),
               ],
             ),
+
+           /***
+           *    引用首页内容
+           *
+           * */
+
+          const SizedBox(height: 20,),
+          const Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              child: Text(
+                '其他推荐',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 30,),
+
+
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 3.0),
+          ),
+          const SizedBox(height: 4.0), //主图与顶部之间间距
+
+          //主图页
+          GridView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, //两个网格
+              crossAxisSpacing: 6.0, //横轴间距
+              mainAxisSpacing: 7.0, //纵轴间距
+              childAspectRatio: 0.6, //宽高比例
+            ),
+            itemCount: _imageItems.length,
+            // 图片项的数量
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            // 禁用GridView的滚动
+            itemBuilder: (context, index) {
+              final ImageItem item =
+              _imageItems[index]; // 获取当前索引处的ImageItem对象
+
+              //点击跳转新页面
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TextDetails(item: item),
+                    ),
+                  );
+                },
+
+                //body图片文本
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white, // 设置整块的背景颜色为白色
+
+                    //borderRadius: BorderRadius.circular(8.0), // 设置圆角半径
+
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(8.0), // 设置左下角为圆角
+                      bottomRight: Radius.circular(8.0), // 设置右下角为圆角
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      //主图片
+
+                      Expanded(
+                        child: ClipRRect(
+                          //borderRadius: BorderRadius.circular(8.0), // 设置圆角半径
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(0), // 设置左上角为直角
+                            topRight: Radius.circular(0), // 设置右上角为直角
+                          ),
+
+                          child: FractionallySizedBox(
+                            widthFactor: 1.0,
+                            heightFactor: 1,
+                            child: Image.asset(
+                              item.imagePath,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      //主文本内容
+                      Text(
+                        item.description,
+                        style: const TextStyle(
+                            fontSize: 13.0,
+                            height: 1.2,
+                            fontWeight: FontWeight.w500),
+                        maxLines: 2, // 控制最大行数
+                        overflow: TextOverflow.ellipsis, // 超过时显示省略号
+                      ),
+                      const SizedBox(height: 12.0),
+
+                      //头像和昵称
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          //头像
+                          CircleAvatar(
+                            backgroundImage: AssetImage(item.imagePath),
+                            radius: 13, // 设置圆形头像的半径
+                          ),
+                          const SizedBox(width: 8.0),
+                          //昵称
+                          Text(
+                            item.nickname,
+                            style: const TextStyle(
+                                fontSize: 12.0,
+                                height: 1.2,
+                                color: Colors.black45),
+                          ),
+
+                          const Spacer(),
+                          Text(
+                            item.price,
+                            style: const TextStyle(
+                              fontSize: 15.0,
+                              height: 1.4,
+                              color: Colors.red,
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              );
+
+
+            },
+          ),
 
         ],
       ),
