@@ -29,8 +29,8 @@ class _TimePayPageState extends State<TimePayPage> {
   @override
   void initState() {
     super.initState();
-    isSelected = List.generate(5, (index) => false);
-    dateButtons = List.generate(5, (index) {
+    isSelected = List.generate(8, (index) => false);
+    dateButtons = List.generate(8, (index) {
       final now = DateTime.now();
       final currentDate = now.add(Duration(days: index));
       final formattedDate = DateFormat('M-d').format(currentDate);
@@ -84,38 +84,44 @@ class _TimePayPageState extends State<TimePayPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 30),
-            Row(
-              children: List.generate(dateButtons.length, (index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                  child: TextButton(
-                    onPressed: () {
-                      setState(() {
-                        isSelected[index] = !isSelected[index];
-                      });
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor:
-                      isSelected[index] ? Colors.green : Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(28.0),
-                        side: BorderSide(
-                          color:
-                          isSelected[index] ? Colors.green : Colors.black12,
+            const SizedBox(height: 16),
+            SizedBox(
+              height: 35, // 设置列表的高度
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal, // 水平滚动
+                itemCount: dateButtons.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          isSelected[index] = !isSelected[index];
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor:
+                        isSelected[index] ? Colors.green : Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          side: BorderSide(
+                            color:
+                            isSelected[index] ? Colors.green : Colors.black12,
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        dateButtons[index],
+                        style: TextStyle(
+                          color: isSelected[index]
+                              ? Colors.white
+                              : Colors.black,
                         ),
                       ),
                     ),
-                    child: Text(
-                      dateButtons[index],
-                      style: TextStyle(
-                        color:
-                        isSelected[index] ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  ),
-                );
-              }),
+                  );
+                },
+              ),
             ),
             const SizedBox(height: 50),
             const Text(
@@ -143,7 +149,7 @@ class _TimePayPageState extends State<TimePayPage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 GestureDetector(
                   onTap: () {
                     setState(() {
@@ -186,7 +192,7 @@ class _TimePayPageState extends State<TimePayPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 180),
+            const Spacer(),
             Row(
               children: [
                 const Text(
@@ -207,7 +213,7 @@ class _TimePayPageState extends State<TimePayPage> {
                     color: Colors.red,
                   ),
                 ),
-                Spacer(), // 自动填充右侧空间
+                const Spacer(), // 自动填充右侧空间
                 InkWell(
                   onTap: () {
                     showDialog(

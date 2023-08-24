@@ -123,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
-            const SizedBox(height: 32.0),
+            const SizedBox(height: 40.0),
 
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -218,7 +218,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const Text(
-                    '我已阅读并同意', style: TextStyle(
+                    '我已阅读并同意帮呗', style: TextStyle(
                     fontSize: 12,color: Colors.black45
                 )
                 ),

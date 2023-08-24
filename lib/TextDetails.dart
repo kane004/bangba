@@ -92,10 +92,11 @@ class TextDetails extends StatelessWidget{
                       Text(
                         item.nickname,
                         style: const TextStyle(
-                            fontSize: 13,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold
                         ),
                       ),
+                      const SizedBox(height: 4),
                       //添加地址文本
                       const Text('青岛',
                         style: TextStyle(
@@ -131,7 +132,7 @@ class TextDetails extends StatelessWidget{
 
                   //引用文本描述
                   item.description,
-                  style: const TextStyle(fontSize: 14),
+                  style: const TextStyle(fontSize: 16),
                 ),
               ),
 
@@ -380,7 +381,7 @@ class TextDetails extends StatelessWidget{
                     color: Colors.green,
                     borderRadius: BorderRadius.circular(4.0),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 12.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 14.0),
                   child: const Text(
                     '下单',
                     style: TextStyle(fontSize: 16, color: Colors.white),

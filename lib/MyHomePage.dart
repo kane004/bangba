@@ -2,6 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kanetest/OrderCanccel.dart';
+import 'package:kanetest/OrderDone.dart';
+import 'package:kanetest/OrderIng.dart';
+import 'package:kanetest/OrderWait.dart';
 import 'HomePageDetails.dart';
 import 'addContent.dart'; // 引入新增内容页面
 
@@ -224,7 +228,7 @@ class HomePage extends StatelessWidget {
             Text(
               '推荐',
               style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 20,
                   color: Colors.black,
                   fontWeight: FontWeight.bold),
             ),
@@ -234,7 +238,7 @@ class HomePage extends StatelessWidget {
             Text(
               '同城',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 16,
                 color: Colors.black45,
               ),
             )
@@ -321,16 +325,19 @@ class HomePage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 8.0),
+                            const SizedBox(height: 4.0),
                             //主文本内容
-                            Text(
-                              item.description,
-                              style: const TextStyle(
-                                  fontSize: 13.0,
-                                  height: 1.2,
-                                  fontWeight: FontWeight.w500),
-                              maxLines: 2, // 控制最大行数
-                              overflow: TextOverflow.ellipsis, // 超过时显示省略号
+                            Padding(padding: const EdgeInsets.symmetric(
+                                vertical: 2, horizontal: 4),
+                              child: Text(
+                                item.description,
+                                style: const TextStyle(
+                                    fontSize: 14.0,
+                                    height: 1.2,
+                                    fontWeight: FontWeight.w500),
+                                maxLines: 2, // 控制最大行数
+                                overflow: TextOverflow.ellipsis, // 超过时显示省略号
+                              ),
                             ),
                             const SizedBox(height: 12.0),
 
@@ -423,10 +430,11 @@ class DispatchPage extends StatelessWidget {
       ),
 
 
-      body: Container(
+      body:
+      Container(
         color: Colors.grey[200],
         child: ListView.builder(
-          padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),//矩形边距
           itemCount: _dispatchTexts.length,
           itemBuilder: (context, index) {
             final ImageItem item = _dispatchTexts[index];
@@ -435,13 +443,13 @@ class DispatchPage extends StatelessWidget {
                 _showDialog(context, item);
               },
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0),
+                padding: const EdgeInsets.symmetric(vertical: 4.0),//矩形与矩形间距
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(8.0),//矩形边角
                   ),
-                  padding: const EdgeInsets.all(24.0),
+                  padding: const EdgeInsets.all(20.0),//矩形高度
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -450,7 +458,7 @@ class DispatchPage extends StatelessWidget {
                         item.description,
                         maxLines: 2,// 设置最大显示行数为2
                         overflow: TextOverflow.ellipsis,// 超过2行时使用省略号
-                        style: const TextStyle(fontSize: 15.0),
+                        style: const TextStyle(fontSize: 16.0),
                       ),
                       const SizedBox(height: 40.0), // 调整上下间距
                       Row(
@@ -481,6 +489,7 @@ class DispatchPage extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 16.0,
                               color: Colors.red,
+                              fontWeight: FontWeight.bold
                             ),
                           ),
                         ],
@@ -492,6 +501,7 @@ class DispatchPage extends StatelessWidget {
             );
           },
         ),
+
       ),
 
 
@@ -513,20 +523,32 @@ void _showDialog(BuildContext context, ImageItem item) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    item.price,
-                    style: const TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 4),
+                    child: Text(
+                      item.price,
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
                     ),
                   ),
-                  IconButton(
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 1),
+                  child: IconButton(
                     onPressed: () {
                       Navigator.of(context).pop(); // 关闭弹窗
                     },
-                    icon: const Icon(Icons.close,size: 20,color: Colors.grey,),
+                    icon: const Icon(
+                      Icons.close,
+                      size: 20,
+                      color: Colors.grey,
+                    ),
                   ),
+                  ),
+
                 ],
               ),
               const SizedBox(height: 20),
@@ -666,7 +688,7 @@ class MessagePage extends StatelessWidget {
                         Text(
                           '系统消息',
                           style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold
                           ),
                         ),
@@ -674,7 +696,7 @@ class MessagePage extends StatelessWidget {
                         Text(
                           '收到来自小小的投诉啦来看看~',
                           style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 13,
                               color: Colors.grey
                           ),
                         ),
@@ -703,14 +725,14 @@ class MessagePage extends StatelessWidget {
                      Text(
                        '订单消息',
                        style: TextStyle(
-                         fontSize: 14,
+                         fontSize: 16,
                          fontWeight: FontWeight.bold,
                        ),
                      ),
                      SizedBox(height: 5),
                      Text('您有新的订单请查看~',
                        style: TextStyle(
-                         fontSize: 12,
+                         fontSize: 13,
                          color: Colors.grey,
 
                        ),
@@ -739,7 +761,7 @@ class MessagePage extends StatelessWidget {
                   children: [
                     Text('小助手',
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -747,7 +769,7 @@ class MessagePage extends StatelessWidget {
                     Text(
                       '有什么问题都可以问我哦~',
                       style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 13,
                           color: Colors.grey,
                       ),
                     )
@@ -787,7 +809,7 @@ class ProfilePage extends StatelessWidget {
         child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 30), // 添加顶部与body之间的间距
+          const SizedBox(height: 40), // 添加顶部与body之间的间距
           InkWell(
             onTap:(){
               Navigator.push(
@@ -796,7 +818,8 @@ class ProfilePage extends StatelessWidget {
                     avatarImagePath: 'images/image4.webp',
                     nickname: '也许这就是哎',
                     id: '41331',
-                  ))
+                  )
+                  )
               );
             },
           child:  Container(
@@ -814,7 +837,7 @@ class ProfilePage extends StatelessWidget {
                     children: [
                       Text(
                         '也许这就是哎', // 替换为您的昵称
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 8),
                       Row(
@@ -857,7 +880,7 @@ class ProfilePage extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 30),
+          const SizedBox(height: 20),
 
           // 第二个Container，加背景图片
 
@@ -866,13 +889,13 @@ class ProfilePage extends StatelessWidget {
               children: [
 
                 Container(
+                  height: 128,
                   decoration: BoxDecoration(
                     color: Colors.white,
-
                     borderRadius: BorderRadius.circular(8.0),// 添加圆角边框
                   ),
                   // 设置文本icon水平和垂直方向的间距
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
                   margin: const EdgeInsets.all(10.0),//矩形框和墙边距
 
                   child:Column(
@@ -880,28 +903,70 @@ class ProfilePage extends StatelessWidget {
                     const Align(
                       alignment: Alignment.centerLeft,
                       child:   Text('我的订单',style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black87
+                          color: Colors.black54
 
                       )
                       ),
 
                     ),
-                  SizedBox(height: 30,),
+                  const SizedBox(height: 30),
                    Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildTextWithIcon('待处理', 'images/order1.png'),
-                      _buildTextWithIcon('进行中', 'images/order2.png'),
-                      _buildTextWithIcon('已完成', 'images/order3.png'),
-                      _buildTextWithIcon('已取消', 'images/order4.png'),
+
+                      InkWell(
+                        onTap:(){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const OrderWait(
+                              ))
+                          );
+                        },
+                      child: _buildTextWithIcon('待处理', 'images/order1.png'),
+                      ),
+
+                      InkWell(
+                        onTap:(){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const OrderIng(
+                              ))
+                          );
+                        },
+                     child: _buildTextWithIcon('进行中', 'images/order2.png'),
+                      ),
+
+                      InkWell(
+                        onTap:(){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const OrderDone(
+                              ))
+                          );
+                        },
+                     child: _buildTextWithIcon('已完成', 'images/order3.png'),
+                      ),
+
+                      InkWell(
+                        onTap:(){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const OrderCancel(
+                              ))
+                          );
+                        },
+                    child:  _buildTextWithIcon('已取消', 'images/order4.png'),
+                      ),
+
                       _buildTextWithIcon('全部', 'images/order5.png'),
                     ],
                   ),
         ],
                   ),
                 ),
+
 
                 /**
                  *    其他服务
@@ -913,16 +978,16 @@ class ProfilePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.0)// 添加圆角边框
                   ),
                   // 设置文本icon水平和垂直方向的间距
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
                   margin: const EdgeInsets.all(10.0),//矩形框和墙边距
                   child: Column(
                     children:[
                       const Align(
                         alignment: Alignment.centerLeft,
                         child:   Text('其他服务',style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black87
+                            color: Colors.black54
 
                         )
                         ),

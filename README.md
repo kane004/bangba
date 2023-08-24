@@ -1,6 +1,6 @@
 # kanetest
 
-A new Flutter project.
+帮吧APP
 
 ## Getting Started
 

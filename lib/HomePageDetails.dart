@@ -57,7 +57,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
           Align(
             alignment: Alignment.topLeft,
             child: Container(
-              margin: const EdgeInsets.fromLTRB(8, 60, 16, 0), // 顶部和头像的间距
+              margin: const EdgeInsets.fromLTRB(8, 80, 14, 16), // 顶部和头像的间距,左间距，顶间距
               padding: const EdgeInsets.all(16),
 
               child: Column(
@@ -67,7 +67,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                     children: [
                       CircleAvatar(
                         backgroundImage: AssetImage(widget.avatarImagePath), //头像
-                        radius: 28,
+                        radius: 30,
                       ),
                       const SizedBox(width: 10), //头像和昵称id的宽度
                       Column(
@@ -78,14 +78,15 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                             Text(
                             widget.nickname,
                             style: const TextStyle(
-                              fontSize: 16,
+                              fontSize: 20,
                               color: Colors.white,
+                              fontWeight: FontWeight.bold
                             ),
                           ),
                           const SizedBox(width: 6),
                           const CircleAvatar(
                             backgroundImage: AssetImage('images/woman.png'),
-                            radius: 10,
+                            radius: 8,
                             backgroundColor: Colors.white12,
                           ),
 
@@ -120,7 +121,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                     '爱好摄影，旅行，喜欢看全世界',
                     // 替换为您的新文本
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 14,
                       color: Colors.white,
                     ),
                     maxLines: 3, // 控制最大行数
@@ -170,13 +171,6 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                     ),
                     SizedBox(width: 120),
 
-                  CircleAvatar(
-                    backgroundImage: AssetImage('images/telegram.png'),
-                    radius: 12,
-                    backgroundColor: Colors.white12,
-
-
-                  )
 
                    ],
                   ),
