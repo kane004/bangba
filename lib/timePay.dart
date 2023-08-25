@@ -48,7 +48,7 @@ class _TimePayPageState extends State<TimePayPage> {
         title: const Text(
           '下单',
           style: TextStyle(
-            fontSize: 16,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
@@ -69,7 +69,7 @@ class _TimePayPageState extends State<TimePayPage> {
                 Text(
                   widget.nickname,
                   style: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

@@ -31,7 +31,7 @@ class _AddContentPageState extends State<AddContentPage> {
                   '添加技能',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
+                      fontSize: 18.0,
                       color: Colors.black
 
                   ),
@@ -165,7 +165,7 @@ class _AddContentPageState extends State<AddContentPage> {
                   const Text(
                     '价格',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 16,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),

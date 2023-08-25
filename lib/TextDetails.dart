@@ -266,14 +266,17 @@ class TextDetails extends StatelessWidget{
                           ),
                           const SizedBox(height: 8.0),
                           //主文本内容
-                          Text(
-                            item.description,
-                            style: const TextStyle(
-                                fontSize: 13.0,
-                                height: 1.2,
-                                fontWeight: FontWeight.w500),
-                            maxLines: 2, // 控制最大行数
-                            overflow: TextOverflow.ellipsis, // 超过时显示省略号
+                          Padding(padding: const EdgeInsets.symmetric(
+                              vertical: 2, horizontal: 4),
+                            child: Text(
+                              item.description,
+                              style: const TextStyle(
+                                  fontSize: 14.0,
+                                  height: 1.2,
+                                  fontWeight: FontWeight.w500),
+                              maxLines: 2, // 控制最大行数
+                              overflow: TextOverflow.ellipsis, // 超过时显示省略号
+                            ),
                           ),
                           const SizedBox(height: 12.0),
 

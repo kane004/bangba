@@ -2,11 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kanetest/IdAuthentication.dart';
 import 'package:kanetest/OrderCanccel.dart';
 import 'package:kanetest/OrderDone.dart';
 import 'package:kanetest/OrderIng.dart';
 import 'package:kanetest/OrderWait.dart';
+import 'package:kanetest/ProblemAsk.dart';
+import 'package:kanetest/Report.dart';
+import 'CouponCheap.dart';
 import 'HomePageDetails.dart';
+import 'SetPerson.dart';
 import 'addContent.dart'; // 引入新增内容页面
 
 
@@ -569,7 +574,7 @@ void _showDialog(BuildContext context, ImageItem item) {
                       borderRadius: BorderRadius.circular(4.0),
                     ),
                   ),
-                  child: const Text('申请', style: TextStyle(color: Colors.white)),
+                  child: const Text('申请', style: TextStyle(color: Colors.white,fontSize: 16)),
                 ),
               ),
             ],
@@ -997,19 +1002,66 @@ class ProfilePage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
+
                           _buildIconWithIcon('我发布的', 'images/me1.png',32),
-                          _buildIconWithIcon('认证中心', 'images/me2.png',32),
-                          _buildIconWithIcon('意见反馈', 'images/me3.png',32),
-                          _buildIconWithIcon('个人设置', 'images/me4.png',32),
+                          InkWell(
+                            onTap:(){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const IdAuthentication(
+                                  ))
+                              );
+                            },
+                         child: _buildIconWithIcon('认证中心', 'images/me2.png',32),
+                          ),
+                          InkWell(
+                            onTap:(){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const ProblemAsk(
+                                  ))
+                              );
+                            },
+                        child:  _buildIconWithIcon('意见反馈', 'images/me3.png',32),
+                          ),
+                          InkWell(
+                            onTap:(){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const SetPerson(
+                                  ))
+                              );
+                            },
+                        child:  _buildIconWithIcon('个人设置', 'images/me4.png',32),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 30),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          _buildIconWithIcon('举报中心', 'images/me5.png',32),
+                          InkWell(
+                            onTap:(){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const Report(
+                                  ))
+                              );
+                            },
+                         child: _buildIconWithIcon('举报中心', 'images/me5.png',32),
+                          ),
                           _buildIconWithIcon('我的排名', 'images/me6.png',32),
-                          _buildIconWithIcon('优惠券', 'images/me7.png',32),
+                          InkWell(
+                            onTap:(){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const CouponCheap(
+                                  ))
+                              );
+                            },
+                        child:  _buildIconWithIcon('优惠券', 'images/me7.png',32),
+                          ),
+
                           _buildIconWithIcon('支付密码', 'images/me4.png',32),
                         ],
                       ),
@@ -1114,14 +1166,17 @@ class ProfilePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 8.0),
                       //主文本内容
-                      Text(
-                        item.description,
-                        style: const TextStyle(
-                            fontSize: 13.0,
-                            height: 1.2,
-                            fontWeight: FontWeight.w500),
-                        maxLines: 2, // 控制最大行数
-                        overflow: TextOverflow.ellipsis, // 超过时显示省略号
+                      Padding(padding: const EdgeInsets.symmetric(
+                          vertical: 2, horizontal: 4),
+                        child: Text(
+                          item.description,
+                          style: const TextStyle(
+                              fontSize: 14.0,
+                              height: 1.2,
+                              fontWeight: FontWeight.w500),
+                          maxLines: 2, // 控制最大行数
+                          overflow: TextOverflow.ellipsis, // 超过时显示省略号
+                        ),
                       ),
                       const SizedBox(height: 12.0),
 
