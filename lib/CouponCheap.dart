@@ -12,13 +12,27 @@ class _WaitingToDoState extends State<CouponCheap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: null, // 设置标题为null，这样就不会显示标题
-        backgroundColor: Colors.transparent, // 设置背景颜色为透明色
+
         iconTheme: const IconThemeData(color: Colors.black), // 设置返回按键的颜色为黑色
-        elevation: 0, // 去掉阴影效果
+        title: const Text(
+              '优惠券',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.0,
+                  color: Colors.black
+
+              ),
+            ),
+
+        elevation: 0, // 去掉AppBar的底部阴影
+        backgroundColor: Colors.white, // 将AppBar的背景设置为透明
+
       ),
       body: const Center(
+
+
 
       ),
     );

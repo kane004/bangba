@@ -12,6 +12,7 @@ import 'package:kanetest/Report.dart';
 import 'CouponCheap.dart';
 import 'HomePageDetails.dart';
 import 'SetPerson.dart';
+import 'SystemMessageDetail.dart';
 import 'addContent.dart'; // 引入新增内容页面
 
 
@@ -671,8 +672,8 @@ class MessagePage extends StatelessWidget {
             children: [
               SizedBox(height: 16),
 
-              // 头像和文本
-              Padding(
+
+            Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Row(
 
@@ -710,6 +711,7 @@ class MessagePage extends StatelessWidget {
                   ],
                 ),
               ),
+
 
           //订单消息
            Padding(
@@ -903,7 +905,7 @@ class ProfilePage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
                   margin: const EdgeInsets.all(10.0),//矩形框和墙边距
 
-                  child:Column(
+                  child: Column(
                   children:[
                     const Align(
                       alignment: Alignment.centerLeft,

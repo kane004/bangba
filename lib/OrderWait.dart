@@ -74,7 +74,6 @@ class _WaitingToDoState extends State<OrderWait> {
                 );
               } ,
 
-
          child:   Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Container(

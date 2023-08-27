@@ -12,8 +12,8 @@ class _WaitingToDoState extends State<Report> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
-
         iconTheme: const IconThemeData(color: Colors.black), // 设置返回按键的颜色为黑色
         title: Row(
 
@@ -22,7 +22,7 @@ class _WaitingToDoState extends State<Report> {
               '举报中心',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
+                  fontSize: 20.0,
                   color: Colors.black
 
               ),
@@ -46,16 +46,98 @@ class _WaitingToDoState extends State<Report> {
           ],
         ),
 
-
         elevation: 0, // 去掉AppBar的底部阴影
-        backgroundColor: Colors.grey[200], // 将AppBar的背景设置为透明
-
+        backgroundColor: Colors.grey[100], // 将AppBar的背景设置为透明
       ),
-      body: const Center(
+      //SingleChildScrollView
 
 
+      body: SingleChildScrollView(
+            child:  Container(
+                padding: const EdgeInsets.symmetric(vertical: 32,horizontal: 16),
+                child:  Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      '举报类型:',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 24),
 
-      ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                            height: 40,
+                            width: 160,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(4.0)
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 16),
+                            child: const Center(
+                              child:  Text('违法违规',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            )
+                        ),
+                        const Spacer(),
+                        Container(
+                            height: 40,
+                            width: 160,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(4.0)
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 16),
+                            child: const Center(
+                              child:  Text('色情低俗',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            )
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 60),
+
+                    const Text(
+                      '问题描述:',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 24),
+
+                    Container(
+                      height: 148,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+
+                      padding: EdgeInsets.symmetric(vertical: 8,horizontal: 16),
+                      child: const TextField(
+                        decoration: InputDecoration.collapsed(
+                            hintText: '输入具体问题~',
+                            hintStyle: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey,
+                            )
+                        ),
+
+                      ),
+                    )
+
+
+                  ],
+                ),
+              ),
+      )
     );
   }
 }

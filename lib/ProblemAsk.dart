@@ -22,7 +22,7 @@ class _WaitingToDoState extends State<ProblemAsk> {
               '意见反馈',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
+                  fontSize: 20.0,
                   color: Colors.black
 
               ),
@@ -47,7 +47,7 @@ class _WaitingToDoState extends State<ProblemAsk> {
         ),
 
         elevation: 0, // 去掉AppBar的底部阴影
-        backgroundColor: Colors.white, // 将AppBar的背景设置为透明
+        backgroundColor: Colors.grey[100], // 将AppBar的背景设置为透明
 
 
 
@@ -55,8 +55,8 @@ class _WaitingToDoState extends State<ProblemAsk> {
 
 
       body: Container(
-        color: Colors.white, // 设置整个页面的背景颜色为白色
-        padding: EdgeInsets.all(16.0),
+        color: Colors.grey[100], // 设置整个页面的背景颜色为白色
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             SizedBox(height: 20),
@@ -64,7 +64,7 @@ class _WaitingToDoState extends State<ProblemAsk> {
               padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               height: 200,
               decoration: BoxDecoration(
-                color: Colors.grey[200], // 设置灰色背景
+                color: Colors.white, // 设置灰色背景
                 borderRadius: BorderRadius.circular(8.0), // 圆角
               ),
               child: const TextField(
