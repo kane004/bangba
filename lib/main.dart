@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'MyHomePage.dart';
+import 'HomePage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
       // 登录成功，跳转到首页
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const MyHomePage()),
+        MaterialPageRoute(builder: (context) => const HomePage()),
       );
     }
   }
@@ -73,21 +73,9 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  // 向后端接口发送请求，获取服务协议内容
-  Future<void> fetchTermsAndConditions() async {
-    final response = await http.get(Uri.parse('http://114.132.44.108:8083/qw/app/agree'));
 
-    if (response.statusCode == 200) {
-      final jsonData = json.decode(response.body);
-      final terms = jsonData['terms']; // 假设服务协议内容的字段名为 'terms'
 
-      setState(() {
-        termsAndConditions = terms;
-      });
-    } else {
-      // 处理请求失败的情况
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -181,7 +169,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
-            const SizedBox(height: 32.0),
+            const SizedBox(height: 10,),
             ElevatedButton(
               onPressed: _login,
               style: ElevatedButton.styleFrom(
@@ -222,36 +210,14 @@ class _LoginPageState extends State<LoginPage> {
                     fontSize: 12,color: Colors.black45
                 )
                 ),
-                GestureDetector(
-                  onTap: () async {
-                    await fetchTermsAndConditions(); // 等待获取服务协议内容
-                    // ignore: use_build_context_synchronously
-                    showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                        title: const Text('服务协议'),
-                    content: Text(
-                    termsAndConditions, // 显示服务协议内容
-                    style: const TextStyle(fontSize: 16),
-                    ),
-                    actions: [
-                    TextButton(
-                    onPressed: () {
-                    Navigator.of(context).pop();
-                    },
-                    child: const Text('关闭'),
-                    ),
-                    ],
-                        ),
-                    );
-                  },
-                 child: const Text(
+
+                const Text(
                     '《服务协议》', style:TextStyle(
                     fontSize: 12,color: Colors.blue
                 )
                 ),
 
-                ),
+
                 const SizedBox(height: 20),
                 Text(
                   termsAndConditions, // 显示服务协议内容
@@ -262,18 +228,14 @@ class _LoginPageState extends State<LoginPage> {
                     fontSize: 12,color: Colors.black45
                 )
                 ),
-                GestureDetector(
-                  onTap: (){
 
-                  },
-
-               child: const Text(
+                const Text(
                     '《隐私政策》', style:TextStyle(
                     fontSize: 12,color: Colors.blue
                 )
                 ),
 
-                ),
+
               ],
             ),
 

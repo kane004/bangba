@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kanetest/HomePageDetails.dart';
 import 'package:kanetest/timePay.dart';
 
-import 'MyHomePage.dart';
+import 'HomePage.dart';
 
 
 class TextDetails extends StatelessWidget{
