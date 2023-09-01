@@ -25,7 +25,9 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _verificationCodeController = TextEditingController();
 
-  String _errorMessage = '';
+
+  String errorText = '';
+
   bool _isAgreedToTerms = false;
   String termsAndConditions = ''; // 用于存储服务协议内容
 
@@ -52,11 +54,15 @@ class _LoginPageState extends State<LoginPage> {
       );
     } else if (username.isEmpty || password.isEmpty || verificationCode.isEmpty) {
       setState(() {
-        _errorMessage = '请填写完整信息';
+        errorText = '请填写有效信息';
       });
     } else if (verificationCode != '1234') {
       setState(() {
-        _errorMessage = '验证码错误';
+        errorText = '验证码错误';
+      });
+    } else if(username.length < 11){
+      setState(() {
+        errorText = '手机号输入有误';
       });
     } else {
       // 登录成功，跳转到首页
@@ -111,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
-            const SizedBox(height: 40.0),
+            Spacer(),
 
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -147,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
-            const SizedBox(height: 8.0),
+            SizedBox(height: 10,),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               decoration: BoxDecoration(
@@ -169,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
-            const SizedBox(height: 10,),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _login,
               style: ElevatedButton.styleFrom(
@@ -188,7 +194,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
-
+            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

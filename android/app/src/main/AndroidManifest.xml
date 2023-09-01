@@ -2,7 +2,9 @@
     package="com.example.kanetest">
     <!-- 添加网络请求权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
-   <application
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
         android:label="帮呗"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"> //应用程序的图标资源

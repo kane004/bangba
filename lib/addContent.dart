@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart';
 
-
-
 class AddContentPage extends StatefulWidget {
-  const AddContentPage({super.key});
+  const AddContentPage({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _AddContentPageState createState() => _AddContentPageState();
 }
 
@@ -16,63 +13,81 @@ class _AddContentPageState extends State<AddContentPage> {
   TextEditingController priceController = TextEditingController();
   String price = '0.00';
   final ImagePicker _imagePicker = ImagePicker();
+  XFile? pickedFile;
 
+  Future<void> uploadImage() async {
+    if (pickedFile != null) {
+      try {
+        FormData formData = FormData.fromMap({
+          'file': await MultipartFile.fromFile(pickedFile!.path),
+        });
+
+        final Dio dio = Dio();
+        final response = await dio.post('http://114.132.44.108:8083', data: formData);
+
+        if (response.statusCode == 200) {
+          // Image upload successful, handle logic here
+          // You can update the UI to display the uploaded image, etc.
+        } else {
+          // Image upload failed, handle logic here
+          // You can display a failed upload message here
+        }
+      } catch (e) {
+        // Error occurred during upload, handle logic here
+        // You can display an error message here
+      }
+    }
+  }
+
+  Future<void> pickImage() async {
+    final XFile? pickedImage = await _imagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      pickedFile = pickedImage;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
-        iconTheme: const IconThemeData(color: Colors.black), // 设置返回按键的颜色为黑色
+        iconTheme: const IconThemeData(color: Colors.black),
         title: Row(
-
-              children: [
-                const Text(
-                  '添加技能',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                      color: Colors.black
-
-                  ),
-                ),
-                const Spacer(),
-                TextButton(
-                  onPressed: () {
-                    // 在这里添加发布按钮的点击事件
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.green, // 设置背景颜色为绿色
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(32.0), // 设置圆角
-                    ),
-                  ),
-                  child: const Text(
-                    '发布',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
+          children: [
+            const Text(
+              '添加技能',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+                color: Colors.black,
+              ),
             ),
-
-
-        elevation: 0, // 去掉AppBar的底部阴影
-        backgroundColor: Colors.grey[200], // 将AppBar的背景设置为透明
-
+            const Spacer(),
+            TextButton(
+              onPressed: () {
+                // Add logic for publish button click here
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.green,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32.0),
+                ),
+              ),
+              child: const Text(
+                '发布',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+        elevation: 0,
+        backgroundColor: Colors.grey[200],
       ),
-
-
-       /**
-       *   添加技能  发布
-       *
-       * */
-
-
       body: Container(
         color: Colors.grey[200],
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, // 设置左对齐
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               width: double.infinity,
@@ -80,10 +95,46 @@ class _AddContentPageState extends State<AddContentPage> {
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(16.0),
+                borderRadius: BorderRadius.circular(8.0),
               ),
               child: Stack(
                 children: [
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    child: GestureDetector(
+                      onTap: pickImage,
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        child: const Center(
+                          child: Column(
+                            children: [
+                              Text(
+                                '+',
+                                style: TextStyle(
+                                  fontSize: 40,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              Text(
+                                '添加更多优质图片~',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                   const TextField(
                     decoration: InputDecoration(
                       hintText: '描述您的技能详细内容...',
@@ -98,55 +149,6 @@ class _AddContentPageState extends State<AddContentPage> {
                     ),
                     maxLines: null,
                   ),
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    child: GestureDetector(
-                      onTap: () async {
-                        final XFile? pickedFile = await _imagePicker.pickImage(source: ImageSource.gallery);
-
-                        if (pickedFile != null) {
-                          try {
-                            FormData formData = FormData.fromMap({
-                              'file': await MultipartFile.fromFile(pickedFile.path),
-                            });
-
-                            final Dio dio = Dio();
-                            final response = await dio.post('http://114.132.44.108:8083', data: formData);
-
-                            if (response.statusCode == 200) {
-                              // 上传成功，处理逻辑
-                              // 您可以在这里更新UI，显示已上传的图片等等
-                            } else {
-                              // 上传失败，处理逻辑
-                              // 您可以在这里显示上传失败的提示
-                            }
-                          } catch (e) {
-                            // 上传出错，处理逻辑
-                            // 您可以在这里显示上传出错的提示
-                          }
-                        }
-                      },
-                      child: Container(
-                        width: 120,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            '+添加优质图片~',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-
-                  ),
                 ],
               ),
             ),
@@ -157,7 +159,7 @@ class _AddContentPageState extends State<AddContentPage> {
               height: 80,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(16.0),
+                borderRadius: BorderRadius.circular(8.0),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -176,7 +178,10 @@ class _AddContentPageState extends State<AddContentPage> {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: const Text('输入价格'),
+                            title: const Text(
+                              '输入价格',
+                              style: TextStyle(fontSize: 16),
+                            ),
                             content: TextField(
                               controller: priceController,
                               keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -204,7 +209,7 @@ class _AddContentPageState extends State<AddContentPage> {
                         Text(
                           '￥$price',
                           style: const TextStyle(
-                            fontSize: 14,
+                            fontSize: 16,
                             color: Colors.red,
                             fontWeight: FontWeight.bold,
                           ),
@@ -226,11 +231,9 @@ class _AddContentPageState extends State<AddContentPage> {
           ],
         ),
       ),
-
-
-
     );
   }
+
   @override
   void dispose() {
     priceController.dispose();

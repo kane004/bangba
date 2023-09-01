@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kanetest/timePay.dart';
+import 'package:kanetest/OrderPay.dart';
 
 import 'HomePage.dart';
 
@@ -8,7 +8,10 @@ class TextDetails extends StatelessWidget{
 
   final ImageItem item;
 
-   TextDetails({Key? key, required this.item}) : super(key: key);
+   TextDetails({Key? key,
+     required this.item
+
+   }) : super(key: key);
 
   //创建一个包含ImageItem对象的列表，用于存储每张图片的信息
   final List<ImageItem> _imageItems = [
@@ -364,34 +367,36 @@ class TextDetails extends StatelessWidget{
               ),
               const SizedBox(width: 8), // 调整按钮之间的间距
 
-
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TimePayPage(
+              ElevatedButton(
+                onPressed: () {
+                  // 显示弹窗页面
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return OrderPay(
                         imagePath: item.imagePath,
                         nickname: item.nickname,
                         price: item.price,
-                      ),
-                    ),
+                        description: item.description,
+                      );
+                    },
                   );
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 14.0),
-                  child: const Text(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.green,
+                  onPrimary: Colors.white,
+                  elevation: 0, // 去掉阴影效果
+                  //设置圆角按钮
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+                  child: Text(
                     '下单',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    style: TextStyle(fontSize: 16),
                   ),
                 ),
-              )
-
-
+              ),
 
 
             ],

@@ -73,7 +73,7 @@ class _WaitingToDoState extends State<Message> {
                       Text(
                         '系统消息',
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold
                         ),
                       ),
@@ -81,7 +81,7 @@ class _WaitingToDoState extends State<Message> {
                       Text(
                         '收到来自小小的投诉啦来看看~',
                         style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 13,
                             color: Colors.grey
                         ),
                       ),
@@ -111,14 +111,14 @@ class _WaitingToDoState extends State<Message> {
                       Text(
                         '订单消息',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       SizedBox(height: 5),
                       Text('您有新的订单请查看~',
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 13,
                           color: Colors.grey,
 
                         ),
@@ -147,7 +147,7 @@ class _WaitingToDoState extends State<Message> {
                     children: [
                       Text('小助手',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -155,7 +155,7 @@ class _WaitingToDoState extends State<Message> {
                       Text(
                         '有什么问题都可以问我哦~',
                         style: TextStyle(
-                          fontSize: 14 ,
+                          fontSize: 13 ,
                           color: Colors.grey,
                         ),
                       )

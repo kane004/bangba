@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class OrderDetail extends StatefulWidget {
   const OrderDetail({Key? key}) : super(key: key);
 
+
+
   @override
   // ignore: library_private_types_in_public_api
   _WaitingToDoState createState() => _WaitingToDoState();
@@ -54,9 +56,9 @@ class _WaitingToDoState extends State<OrderDetail> {
                       fontSize: 20,
                       color: Colors.white),
                 ),
+
               ),
             ),
-
 
 
           ],

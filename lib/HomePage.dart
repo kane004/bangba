@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'addContent.dart';
 import 'package:kanetest/TextDetails.dart';
-import 'Order.dart';
+import 'Distribute.dart';
 import 'Message.dart';
 import 'MyPage.dart';
 
@@ -30,37 +30,37 @@ final List<ImageItem> _imageItems = [
     imagePath: 'images/image1.webp',
     description: '同城地接导游带你打卡城市各个角落景点帮忙领东西',
     nickname: '小鑫不信',
-    price: '￥250',
+    price: '250',
   ),
   ImageItem(
     imagePath: 'images/image2.webp',
     description: '室内设计装修根据你的要求或者全包设计预算2-10万',
     nickname: '小朱不朱',
-    price: '￥130',
+    price: '130',
   ),
   ImageItem(
     imagePath: 'images/image3.webp',
     description: '大学生兼职可以帮忙取快递帮忙表白帮介绍对象根',
     nickname: '小艾不爱',
-    price: '￥50.0',
+    price: '50.0',
   ),
   ImageItem(
     imagePath: 'images/image4.webp',
     description:  '摄影跟拍户外亲自婚纱都可以不同风格都能驾',
     nickname: '小肖不笑',
-    price: '￥88',
+    price: '88',
   ),
   ImageItem(
     imagePath: 'images/image5.webp',
     description:  '三亚游艇出海游艇出行跟进拍摄2000左右',
     nickname: '小夏不下',
-    price: '￥500',
+    price: '500',
   ),
   ImageItem(
     imagePath: 'images/image6.webp',
     description: '兼职伴娘300一天可以帮忙配合表演',
     nickname: '小顾布谷',
-    price: '￥450',
+    price: '450',
   ),
 
 ];
@@ -83,8 +83,8 @@ class _HomePageState extends State<HomePage> {
 
 
   final List<Widget> _pages = [
-    HomePageContent(),
-    const Order(),
+    const HomePageContent(),
+    const Distribute(),
     const Message(),
     const MyPage(),
   ];
@@ -295,7 +295,7 @@ class HomePageContent extends StatelessWidget {
                                                 child: Text(
                                                   item.description,
                                                   style: const TextStyle(
-                                                      fontSize: 16.0,
+                                                      fontSize: 14.0,
                                                       height: 1.5,
                                                       fontWeight:
                                                           FontWeight.w500),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Order extends StatefulWidget {
-  const Order({Key? key}) : super(key: key);
+import 'DistributeDetail.dart';
+
+class Distribute extends StatefulWidget {
+  const Distribute({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -36,7 +38,7 @@ final List<ImageItem> _dispatchTexts = [
 
   ImageItem(
     imagePath: 'images/image2.webp',
-    description: '下周日需要伴娘3名，要求165以上，形象一般即可',
+    description: '下周日需要伴娘3名，要求165以上，形象一般即可,不能跟新娘抢风头',
     nickname: '小明不明',
     price: '￥200',
   ),
@@ -55,7 +57,7 @@ final List<ImageItem> _dispatchTexts = [
 
 ];
 
-class _WaitingToDoState extends State<Order> {
+class _WaitingToDoState extends State<Distribute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,8 +75,7 @@ class _WaitingToDoState extends State<Order> {
       ),
 
 
-      body:
-      Container(
+      body: Container(
         color: Colors.grey[200],
         child: ListView.builder(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),//矩形边距
@@ -83,7 +84,12 @@ class _WaitingToDoState extends State<Order> {
             final ImageItem item = _dispatchTexts[index];
             return GestureDetector(
               onTap: () {
-                _showDialog(context, item);
+                Navigator.push(
+                  context, MaterialPageRoute(builder: (context) =>  DistributeDetail(item: item,
+
+                ),
+                ),
+                );
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4.0),//矩形与矩形间距
@@ -153,106 +159,4 @@ class _WaitingToDoState extends State<Order> {
 }
 
 
-void _showDialog(BuildContext context, ImageItem item) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        content: SizedBox(
-          height: 400,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 4),
-                    child: Text(
-                      item.price,
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
 
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 1),
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(); // 关闭弹窗
-                      },
-                      icon: const Icon(
-                        Icons.close,
-                        size: 20,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-
-                ],
-              ),
-              const SizedBox(height: 20),
-              Text(item.description),
-
-              const Spacer(),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); // 关闭弹窗
-                    _showSuccessDialog(context); // 显示申请成功的弹窗
-                  },
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 16.0),
-                    backgroundColor: Colors.green,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                    ),
-                  ),
-                  child: const Text('申请', style: TextStyle(color: Colors.white,fontSize: 16)),
-                ),
-              ),
-            ],
-          ),
-        ),
-        actions: const [],
-      );
-    },
-  );
-}
-
-
-
-void _showSuccessDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        content: const Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.check_circle,
-              color: Colors.green,
-              size: 50.0,
-            ),
-            SizedBox(height: 16.0),
-            Text('申请成功！', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('关闭'),
-          ),
-        ],
-      );
-    },
-  );
-}

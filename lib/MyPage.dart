@@ -183,11 +183,11 @@ class _WaitingToDoState extends State<MyPage> {
                             onTap:(){
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const OrderWait(
+                                  MaterialPageRoute(builder: (context) => const OrderWait(imagePath: '', nickname: '', price: '', description: '',
                                   ))
                               );
                             },
-                            child: _buildTextWithIcon('待处理', 'images/order1.png'),
+                           child:  _buildTextWithIcon('待处理', 'images/order1.png'),
                           ),
 
                           InkWell(

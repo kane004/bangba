@@ -2,7 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:kanetest/OrderDetail.dart';
 
 class OrderWait extends StatefulWidget {
-  const OrderWait({Key? key}) : super(key: key);
+
+  final String? imagePath;
+  final String? nickname;
+  final String? price;
+  final String? description;
+
+  const OrderWait({
+    Key? key,
+    required this.imagePath,
+    required this.nickname,
+    required this.price,
+    required this.description,
+
+  }) : super(key: key);
+
+
+
 
   @override
   // ignore: library_private_types_in_public_api
@@ -81,54 +97,56 @@ class _WaitingToDoState extends State<OrderWait> {
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8.0)),
-                  child: const Column(
+                  child:  Column(
                     children: [
                       Padding(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                          padding:EdgeInsets.symmetric(vertical: 16, horizontal: 8),
                           child: Text(
-                            '室内设计装修根据你的要求或者全包设计预算2-10万室内设计装修根据你的要求或者全包设计预算2-10万',
-                            style:
-                                TextStyle(color: Colors.black87, fontSize: 14),
+                           '${widget.description}',
+                            style: TextStyle(color: Colors.black87, fontSize: 16),
                             maxLines: 2,
-                          )),
+                          ),
+                      ),
                       Spacer(),
                       Row(
                         children: [
                           Padding(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 16, horizontal: 8),
                               child: CircleAvatar(
                                 backgroundImage:
-                                    AssetImage('images/image2.webp'),
+                                    AssetImage( '${widget.imagePath}',),
                                 radius: 16,
                               )),
                           Padding(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 8, horizontal: 8),
                               child: Text(
-                                '嘟嘟02',
-                                style: TextStyle(
+                                '${widget.nickname}',
+                                style: const TextStyle(
                                     color: Colors.black54, fontSize: 14),
                               )),
-                          Spacer(),
-                          Text(
+                          const Spacer(),
+                          const Text(
                             '已支付',
                             style: TextStyle(color: Colors.red, fontSize: 14),
                           ),
+
                           Padding(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 16, horizontal: 16),
                               child: Text(
-                                '100',
-                                style: TextStyle(
+                                '${widget.price}',
+                                style: const TextStyle(
                                     color: Colors.red,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold),
                               )
                           ),
+
                         ],
                       )
+
                     ],
                   ),
                 )
