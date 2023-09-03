@@ -54,80 +54,47 @@ class TextDetails extends StatelessWidget{
 
   ];
 
+  final List<Tab> myTabs = <Tab>[
+    const Tab(text: '提供'),
+    const Tab(text: '需求'),
+    const Tab(text: '动态'),
+  ];
+
+
 
   @override
   Widget build(BuildContext context){
 
       return Scaffold(
+        backgroundColor: Colors.white,
 
           appBar: AppBar(
-          backgroundColor: Colors.grey[100],// 设置AppBar的背景设置白色
-          iconTheme: const IconThemeData(color: Colors.black), // 设置返回按键的颜色为黑色
+          backgroundColor: Colors.transparent,// 设置AppBar的背景设置透明
+          iconTheme: const IconThemeData(color: Colors.white), // 设置返回按键的颜色为黑色
           elevation: 0,// 去掉AppBar的底部阴影
 
           // centerTitle: _currentIndex == 0 ? false : false, // 将标题居中显示
           ),
+        extendBodyBehindAppBar: true,
 
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
-              
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      //引用头像圆图
-                      backgroundImage: AssetImage(item.imagePath),
-                      radius: 24,
-                    ),
-
-                    const SizedBox(width: 12),
-
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //引用昵称
-                      Text(
-                        item.nickname,
-                        style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      //添加地址文本
-                      const Text('青岛',
-                        style: TextStyle(
-                            fontSize: 12,
-                          color: Colors.grey
-                        ),
-                      )
-                    ],
-                  )
-
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Text(
-
-                  //引用价格
-                  item.price,
-                  style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.red
+              Container(
+                width: double.infinity,
+                height: 400,
+                decoration:  BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(item.imagePath),
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
+             //Image.asset(item.imagePath),
 
-              const SizedBox(height: 20),
+
+              const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
@@ -138,38 +105,140 @@ class TextDetails extends StatelessWidget{
                 ),
               ),
 
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Image.asset(
-                  item.imagePath,
-                  width: MediaQuery.of(context).size.width * 1,
-                  fit: BoxFit.contain,
+              SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+
+                          //引用价格
+                          item.price,
+                          style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.red
+                          ),
+                        ),
+                      ),
+
+              SizedBox(height: 20,),
+
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,//文本水平对齐
+
+                  children:[
+                    Text(
+                      '浏览量',
+                      style: TextStyle(fontSize: 14,color: Colors.grey),
+                    ),
+                    SizedBox(width: 10,),
+                    Text(
+                      '200',
+                      style: TextStyle(fontSize: 14,color: Colors.grey),
+                    ),
+
+                  ],
                 ),
               ),
-              const SizedBox(height: 10),
 
 
-               const Padding(
-                 padding: EdgeInsets.symmetric(horizontal: 8,),
 
-                 child: Row(
-                   crossAxisAlignment: CrossAxisAlignment.end,//文本水平对齐
+                  const SizedBox(height: 48),
 
-                 children:[
-                   Text(
-                   '浏览量',
-                   style: TextStyle(fontSize: 14,color: Colors.grey),
+
+             Padding(
+                 padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child:   Stack(
+                       children: [
+                         Container(
+                           height: 80,
+                           decoration: BoxDecoration(
+                             color: Colors.grey[100],
+                             borderRadius: BorderRadius.circular(8.0),
+                           ),
+                           padding: const EdgeInsets.symmetric(horizontal: 16),
+                         ),
+                         Padding(
+                           padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 16),
+                           child: Row(
+                             children: [
+                               CircleAvatar(
+                                 //引用头像圆图
+                                 backgroundImage: AssetImage(item.imagePath),
+                                 radius: 20,
+                               ),
+
+                               const SizedBox(width: 12),
+
+                               Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   //引用昵称
+                                   Text(
+                                     item.nickname,
+                                     style: const TextStyle(
+                                         fontSize: 16,
+                                         fontWeight: FontWeight.bold
+                                     ),
+                                   ),
+                                   const SizedBox(height: 4),
+                                   //添加地址文本
+                                   const Text('青岛',
+                                     style: TextStyle(
+                                         fontSize: 12,
+                                         color: Colors.grey
+                                     ),
+                                   )
+                                 ],
+                               ),
+
+                               const Spacer(),
+
+                               Stack(
+                                 children: [
+                                   Container(
+                                     height: 30,
+                                     width: 60,
+                                     decoration: BoxDecoration(
+                                       //color: Colors.grey[200],
+                                         borderRadius: BorderRadius.circular(4.0),
+                                         border: Border.all(
+                                             color: Colors.grey,
+                                             width: 1.0
+                                         )
+                                     ),
+                                     padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+                                   ),
+
+                                   const Positioned(
+                                     top: 0,
+                                     left: 0,
+                                     right: 0,
+                                     bottom: 0,
+                                     child: Center(
+                                       child:  Text('+关注',style: TextStyle(
+                                           fontSize: 16,
+                                           color: Colors.grey
+                                       ),
+                                       ),
+                                     ),
+                                   ),
+                                 ],
+                               ),
+
+                             ],
+                           ),
+                         ),
+                       ],
+                     ),
                    ),
-                   SizedBox(width: 10,),
-                   Text(
-                     '200',
-                     style: TextStyle(fontSize: 14,color: Colors.grey),
-                   ),
 
-                 ],
-               ),
-              ),
+
+              const SizedBox(height: 20),
+
+
+
 
 
                   /***
@@ -397,8 +466,6 @@ class TextDetails extends StatelessWidget{
                   ),
                 ),
               ),
-
-
             ],
           ),
         ),

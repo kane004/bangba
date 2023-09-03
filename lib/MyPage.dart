@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'CouponCheap.dart';
-import 'HomePageDetails.dart';
+import 'PersonPage.dart';
 import 'IdAuthentication.dart';
 import 'HomePage.dart';
 import 'OrderCanccel.dart';
@@ -77,7 +77,7 @@ class _WaitingToDoState extends State<MyPage> {
               onTap:(){
                 Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomePageDetails(
+                    MaterialPageRoute(builder: (context) => const PersonPage(
                       avatarImagePath: 'images/image4.webp',
                       nickname: '也许这就是哎',
                       id: '41331',
