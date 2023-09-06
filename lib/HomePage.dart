@@ -12,6 +12,9 @@ class ImageItem {
     final String description;
     final String nickname;
     final String price;
+    final String area;
+    final String Ram;
+
 
   ImageItem(
       {
@@ -19,6 +22,8 @@ class ImageItem {
         required this.description,
         required this.nickname,
         required this.price,
+        required this.area,
+        required this.Ram,
       }
       );
 }
@@ -30,37 +35,49 @@ final List<ImageItem> _imageItems = [
     imagePath: 'images/image1.webp',
     description: '同城地接导游带你打卡城市各个角落景点帮忙领东西',
     nickname: '小鑫不信',
-    price: '250',
+    price: '250.0',
+    area: '深圳',
+    Ram: '￥'
   ),
   ImageItem(
     imagePath: 'images/image2.webp',
     description: '室内设计装修根据你的要求或者全包设计预算2-10万,提供设计图纸，专业上门制作',
     nickname: '小朱不朱',
-    price: '130',
+    price: '130.0',
+    area: '上海',
+    Ram: '￥'
   ),
   ImageItem(
     imagePath: 'images/image3.webp',
     description: '大学生兼职可以帮忙取快递帮忙表白帮介绍对象根大学生兼职可以帮忙取快递帮忙表白帮介绍对象根',
     nickname: '小艾不爱',
     price: '50.0',
+    area: '重庆',
+    Ram: '￥'
   ),
   ImageItem(
     imagePath: 'images/image4.webp',
     description:  '摄影跟拍户外亲自婚纱都可以不同风格都能驾，随时跟拍内容，保证服务质量',
     nickname: '小肖不笑',
-    price: '88',
+    price: '88.0',
+    area: '成都',
+    Ram: '￥'
   ),
   ImageItem(
     imagePath: 'images/image5.webp',
     description:  '三亚游艇出海游艇出行跟进拍摄2000左右，根据你的喜好进行拍照片和服务',
     nickname: '小夏不下',
-    price: '500',
+    price: '500.0',
+    area: '长沙',
+    Ram: '￥'
   ),
   ImageItem(
     imagePath: 'images/image6.webp',
     description: '兼职伴娘300一天可以帮忙配合表演，不抢新娘风头，绝对配合表演，会唱歌舞蹈等',
     nickname: '小顾布谷',
-    price: '450',
+    price: '450.0',
+    area: '北京',
+    Ram: '￥'
   ),
 
 ];
@@ -83,10 +100,10 @@ class _HomePageState extends State<HomePage> {
 
 
   final List<Widget> _pages = [
-    const HomePageContent(),
-    const Distribute(),
-    const Message(),
-    const MyPage(),
+     HomePageContent(),
+     Distribute('派单'),
+     Message('消息'),
+     MyPage('我的'),
   ];
 
   @override
@@ -97,13 +114,18 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar:
       BottomNavigationBar(
 
-        selectedLabelStyle: const TextStyle(color: Colors.green,fontSize: 14),
-        unselectedLabelStyle: const TextStyle(color: Colors.black,fontSize: 14),
-        showSelectedLabels: true, // 被选中时是否显示Label
-        showUnselectedLabels: true, // 未被选中时是否显示Label
-        enableFeedback: true, //点击会产生咔嗒声，长按会产生短暂的振动
-        //backgroundColor: Colors.red, // 设置与页面背景相同的颜色
         currentIndex: _currentIndex,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.green,
+        backgroundColor: Colors.white,
+        selectedFontSize: 14,
+        unselectedFontSize: 14,
+        unselectedItemColor: Colors.black,
+        selectedIconTheme: const IconThemeData(
+          color: Colors.green,opacity: 1.0,size: 20,
+        ),
+        unselectedIconTheme: const IconThemeData(color: Colors.black,opacity: 1.0,size: 20),
+
         onTap: (index) {
           setState(() {
             _currentIndex = index;
@@ -111,29 +133,29 @@ class _HomePageState extends State<HomePage> {
         },
         items: const [
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/grey1.png'),color: Colors.black54), // 自定义未选中状态的图片
-            activeIcon: ImageIcon(AssetImage('images/bottom1.png'),color: Colors.green), // 自定义选中状态的图片
+            icon: ImageIcon(AssetImage('images/grey1.png')), // 自定义未选中状态的图片
+            activeIcon: ImageIcon(AssetImage('images/bottom1.png')), // 自定义选中状态的图片
             label: '首页',
-            backgroundColor: Colors.white
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/grey2.png'),color: Colors.black54), // 自定义未选中状态的图片
-            activeIcon: ImageIcon(AssetImage('images/bottom2.png'),color: Colors.green), // 自定义选中状态的图片
-            label: '派发',
-              backgroundColor: Colors.white
 
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/grey3.png'),color: Colors.black54), // 自定义未选中状态的图片
-            activeIcon: ImageIcon(AssetImage('images/bottom3.png'),color: Colors.green), // 自定义选中状态的图片
-            label: '消息',
-              backgroundColor: Colors.white
+            icon: ImageIcon(AssetImage('images/grey2.png')), // 自定义未选中状态的图片
+            activeIcon: ImageIcon(AssetImage('images/bottom2.png')), // 自定义选中状态的图片
+            label: '派发',
+
+
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/grey4.png'),color: Colors.black54), // 自定义未选中状态的图片
-            activeIcon: ImageIcon(AssetImage('images/bottom4.png'),color: Colors.green), // 自定义选中状态的图片
+            icon: ImageIcon(AssetImage('images/grey3.png')),// 自定义未选中状态的图片
+            activeIcon: ImageIcon(AssetImage('images/bottom3.png')), // 自定义选中状态的图片
+            label: '消息',
+
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(AssetImage('images/grey4.png')), // 自定义未选中状态的图片
+            activeIcon: ImageIcon(AssetImage('images/bottom4.png')), // 自定义选中状态的图片
             label: '我的',
-              backgroundColor: Colors.white
+
           ),
         ],
       ),
@@ -246,6 +268,7 @@ class HomePageContent extends StatelessWidget {
                                         //body图片文本
                                         child: Container(
                                           decoration: const BoxDecoration(
+
                                             color: Colors.white,
                                             // 设置整块的背景颜色为白色
 
@@ -261,6 +284,7 @@ class HomePageContent extends StatelessWidget {
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.stretch,
+
                                             children: [
                                               //主图片
 
@@ -287,57 +311,84 @@ class HomePageContent extends StatelessWidget {
                                               ),
                                               const SizedBox(height: 4.0),
                                               //主文本内容
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 2,
-                                                        horizontal: 4),
-                                                child: Text(
-                                                  item.description,
-                                                  style: const TextStyle(
-                                                      fontSize: 14.0,
-                                                      height: 1.5,
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                  maxLines: 2, // 控制最大行数
-                                                  overflow: TextOverflow
-                                                      .ellipsis, // 超过时显示省略号
-                                                ),
-                                              ),
-                                              const SizedBox(height: 12.0),
 
-                                              //头像和昵称
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  //头像
-                                                  CircleAvatar(
-                                                    backgroundImage: AssetImage(
-                                                        item.imagePath),
-                                                    radius: 13, // 设置圆形头像的半径
-                                                  ),
-                                                  const SizedBox(width: 8.0),
-                                                  //昵称
-                                                  Text(
-                                                    item.nickname,
-                                                    style: const TextStyle(
-                                                        fontSize: 12.0,
-                                                        height: 1.2,
-                                                        color: Colors.black45),
-                                                  ),
+                                             Padding(
+                                                 padding: EdgeInsets.symmetric(horizontal: 4),
+                                               child:  Column(
+                                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                                   children: [
+                                                     Padding(
+                                                       padding:
+                                                       const EdgeInsets.symmetric(vertical: 2),
+                                                       child: Text(
+                                                         item.description,
+                                                         style: const TextStyle(
+                                                             fontSize: 15.0,
+                                                             height: 1.5,
+                                                             fontWeight:
+                                                             FontWeight.w500),
+                                                         maxLines: 2, // 控制最大行数
+                                                         overflow: TextOverflow
+                                                             .ellipsis, // 超过时显示省略号
+                                                       ),
+                                                     ),
+                                                     const SizedBox(height: 2.0),
+                                                     Row(
+                                                       children: [
+                                                         Text(
+                                                           item.Ram,
+                                                           style: const TextStyle(
+                                                               fontSize: 10.0,
+                                                               //height: 1.2,
+                                                               color: Colors.red),
+                                                         ),
 
-                                                  const Spacer(),
-                                                  Text(
-                                                    item.price,
-                                                    style: const TextStyle(
-                                                      fontSize: 15.0,
-                                                      height: 1.4,
-                                                      color: Colors.red,
-                                                    ),
-                                                  )
-                                                ],
-                                              )
+                                                         Text(
+                                                           item.price,
+                                                           style: const TextStyle(
+                                                             fontSize: 15.0,
+                                                             height: 1.4,
+                                                             color: Colors.red,
+                                                           ),
+                                                         ),
+
+                                                       ],
+                                                     ),
+                                                     const SizedBox(height: 12.0),
+                                                     //头像和昵称
+                                                     Row(
+                                                       mainAxisAlignment:
+                                                       MainAxisAlignment.start,
+                                                       children: [
+                                                         //头像
+                                                         CircleAvatar(
+                                                           backgroundImage: AssetImage(
+                                                               item.imagePath),
+                                                           radius: 13, // 设置圆形头像的半径
+                                                         ),
+                                                         const SizedBox(width: 8.0),
+                                                         //昵称
+                                                         Text(
+                                                           item.nickname,
+                                                           style: const TextStyle(
+                                                               fontSize: 12.0,
+                                                               height: 1.2,
+                                                               color: Colors.black45),
+                                                         ),
+
+                                                         const Spacer(),
+                                                         Text(
+                                                           item.area,
+                                                           style: const TextStyle(
+                                                             fontSize: 13.0,
+                                                             color: Colors.grey,
+                                                           ),
+                                                         )
+                                                       ],
+                                                     )
+                                                   ],
+                                                 )
+                                             ),
                                             ],
                                           ),
                                         ),

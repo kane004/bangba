@@ -15,7 +15,7 @@ import 'TextDetails.dart';
 
 class MyPage extends StatefulWidget {
 
-  const MyPage({Key? key}) : super(key: key);
+  const MyPage(String s, {Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -25,44 +25,55 @@ class MyPage extends StatefulWidget {
 //创建一个包含ImageItem对象的列表，用于存储每张图片的信息
 final List<ImageItem> _imageItems = [
   ImageItem(
-    imagePath: 'images/image1.webp',
-    description: '同城地接导游带你打卡城市各个角落景点帮忙领东西',
-    nickname: '小鑫不信',
-    price: '￥250',
+      imagePath: 'images/image1.webp',
+      description: '同城地接导游带你打卡城市各个角落景点帮忙领东西',
+      nickname: '小鑫不信',
+      price: '250.0',
+      area: '深圳',
+      Ram: '￥'
   ),
   ImageItem(
-    imagePath: 'images/image2.webp',
-    description: '室内设计装修根据你的要求或者全包设计预算2-10万',
-    nickname: '小朱不朱',
-    price: '￥130',
+      imagePath: 'images/image2.webp',
+      description: '室内设计装修根据你的要求或者全包设计预算2-10万,提供设计图纸，专业上门制作',
+      nickname: '小朱不朱',
+      price: '130.0',
+      area: '上海',
+      Ram: '￥'
   ),
   ImageItem(
-    imagePath: 'images/image3.webp',
-    description: '大学生兼职可以帮忙取快递帮忙表白帮介绍对象根',
-    nickname: '小艾不爱',
-    price: '￥50.0',
+      imagePath: 'images/image3.webp',
+      description: '大学生兼职可以帮忙取快递帮忙表白帮介绍对象根大学生兼职可以帮忙取快递帮忙表白帮介绍对象根',
+      nickname: '小艾不爱',
+      price: '50.0',
+      area: '重庆',
+      Ram: '￥'
   ),
   ImageItem(
-    imagePath: 'images/image4.webp',
-    description:  '摄影跟拍户外亲自婚纱都可以不同风格都能驾',
-    nickname: '小肖不笑',
-    price: '￥88',
+      imagePath: 'images/image4.webp',
+      description:  '摄影跟拍户外亲自婚纱都可以不同风格都能驾，随时跟拍内容，保证服务质量',
+      nickname: '小肖不笑',
+      price: '88.0',
+      area: '成都',
+      Ram: '￥'
   ),
   ImageItem(
-    imagePath: 'images/image5.webp',
-    description:  '三亚游艇出海游艇出行跟进拍摄2000左右',
-    nickname: '小夏不下',
-    price: '￥500',
+      imagePath: 'images/image5.webp',
+      description:  '三亚游艇出海游艇出行跟进拍摄2000左右，根据你的喜好进行拍照片和服务',
+      nickname: '小夏不下',
+      price: '500.0',
+      area: '长沙',
+      Ram: '￥'
   ),
   ImageItem(
-    imagePath: 'images/image6.webp',
-    description: '兼职伴娘300一天可以帮忙配合表演',
-    nickname: '小顾布谷',
-    price: '￥450',
+      imagePath: 'images/image6.webp',
+      description: '兼职伴娘300一天可以帮忙配合表演，不抢新娘风头，绝对配合表演，会唱歌舞蹈等',
+      nickname: '小顾布谷',
+      price: '450.0',
+      area: '北京',
+      Ram: '￥'
   ),
 
 ];
-
 
 class _WaitingToDoState extends State<MyPage> {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Message extends StatefulWidget {
-  const Message({Key? key}) : super(key: key);
+  const Message(String s, {Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
