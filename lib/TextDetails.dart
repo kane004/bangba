@@ -1,58 +1,24 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:kanetest/OrderPay.dart';
 
-import 'HomePage.dart';
 
 class TextDetails extends StatelessWidget {
-  final ImageItem item;
+  final String description;
+  final String price;
+  final String imagePath;
 
-  TextDetails({Key? key, required this.item}) : super(key: key);
 
-//创建一个包含ImageItem对象的列表，用于存储每张图片的信息
-  final List<ImageItem> _imageItems = [
-    ImageItem(
-        imagePath: 'images/image1.webp',
-        description: '同城地接导游带你打卡城市各个角落景点帮忙领东西',
-        nickname: '小鑫不信',
-        price: '250.0',
-        area: '深圳',
-        Ram: '￥'),
-    ImageItem(
-        imagePath: 'images/image2.webp',
-        description: '室内设计装修根据你的要求或者全包设计预算2-10万,提供设计图纸，专业上门制作',
-        nickname: '小朱不朱',
-        price: '130.0',
-        area: '上海',
-        Ram: '￥'),
-    ImageItem(
-        imagePath: 'images/image3.webp',
-        description: '大学生兼职可以帮忙取快递帮忙表白帮介绍对象根大学生兼职可以帮忙取快递帮忙表白帮介绍对象根',
-        nickname: '小艾不爱',
-        price: '50.0',
-        area: '重庆',
-        Ram: '￥'),
-    ImageItem(
-        imagePath: 'images/image4.webp',
-        description: '摄影跟拍户外亲自婚纱都可以不同风格都能驾，随时跟拍内容，保证服务质量',
-        nickname: '小肖不笑',
-        price: '88.0',
-        area: '成都',
-        Ram: '￥'),
-    ImageItem(
-        imagePath: 'images/image5.webp',
-        description: '三亚游艇出海游艇出行跟进拍摄2000左右，根据你的喜好进行拍照片和服务',
-        nickname: '小夏不下',
-        price: '500.0',
-        area: '长沙',
-        Ram: '￥'),
-    ImageItem(
-        imagePath: 'images/image6.webp',
-        description: '兼职伴娘300一天可以帮忙配合表演，不抢新娘风头，绝对配合表演，会唱歌舞蹈等',
-        nickname: '小顾布谷',
-        price: '450.0',
-        area: '北京',
-        Ram: '￥'),
-  ];
+   const TextDetails({
+    required this.description,
+    required this.price,
+    required this.imagePath,
+
+    Key? key,
+  }) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -77,46 +43,47 @@ class TextDetails extends StatelessWidget {
               height: 400,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(item.imagePath),
-                  fit: BoxFit.cover,
+                  image: FileImage(File(imagePath)), // 使用FileImage来加载本地文件图片
+                  fit: BoxFit.cover, // 适应图片大小以覆盖整个容器
                 ),
               ),
             ),
-            //Image.asset(item.imagePath),
+
+
 
             const SizedBox(height: 16),
 
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+             Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       //引用文本描述
-                      item.description,
-                      style: const TextStyle(fontSize: 16),
+                     '$description',
+                      style: TextStyle(fontSize: 16),
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10),
                     Row(
                       children: [
                         Text(
                           //引用价格
-                          item.Ram,
+                          '￥',
                           style:
-                              const TextStyle(fontSize: 12, color: Colors.red),
+                              TextStyle(fontSize: 12, color: Colors.red),
                         ),
                         Text(
                           //引用价格
-                          item.price,
+                          '$price',
                           style:
-                              const TextStyle(fontSize: 20, color: Colors.red),
+                              TextStyle(fontSize: 20, color: Colors.red),
                         ),
                       ],
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
-                    const Row(
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.end, //文本水平对齐
 
                       children: [
@@ -157,7 +124,7 @@ class TextDetails extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           //引用头像圆图
-                          backgroundImage: AssetImage(item.imagePath),
+                          backgroundImage: AssetImage( imagePath),
                           radius: 20,
                         ),
                         const SizedBox(width: 12),
@@ -166,14 +133,14 @@ class TextDetails extends StatelessWidget {
                           children: [
                             //引用昵称
                             Text(
-                              item.nickname,
+                              '',
                               style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 4),
                             //添加地址文本
                              Text(
-                              item.area,
+                               '',
                               style:
                                   TextStyle(fontSize: 12, color: Colors.grey),
                             )
@@ -247,123 +214,7 @@ class TextDetails extends StatelessWidget {
             ),
             const SizedBox(height: 4.0), //主图与顶部之间间距
 
-            //主图页
-            GridView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, //两个网格
-                crossAxisSpacing: 6.0, //横轴间距
-                mainAxisSpacing: 7.0, //纵轴间距
-                childAspectRatio: 0.6, //宽高比例
-              ),
-              itemCount: _imageItems.length,
-              // 图片项的数量
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              // 禁用GridView的滚动
-              itemBuilder: (context, index) {
-                final ImageItem item =
-                    _imageItems[index]; // 获取当前索引处的ImageItem对象
 
-                //点击跳转新页面
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TextDetails(item: item),
-                      ),
-                    );
-                  },
-
-                  //body图片文本
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white, // 设置整块的背景颜色为白色
-
-                      //borderRadius: BorderRadius.circular(8.0), // 设置圆角半径
-
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(8.0), // 设置左下角为圆角
-                        bottomRight: Radius.circular(8.0), // 设置右下角为圆角
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        //主图片
-
-                        Expanded(
-                          child: ClipRRect(
-                            //borderRadius: BorderRadius.circular(8.0), // 设置圆角半径
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(0), // 设置左上角为直角
-                              topRight: Radius.circular(0), // 设置右上角为直角
-                            ),
-
-                            child: FractionallySizedBox(
-                              widthFactor: 1.0,
-                              heightFactor: 1,
-                              child: Image.asset(
-                                item.imagePath,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 8.0),
-                        //主文本内容
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 2, horizontal: 4),
-                          child: Text(
-                            item.description,
-                            style: const TextStyle(
-                                fontSize: 14.0,
-                                height: 1.2,
-                                fontWeight: FontWeight.w500),
-                            maxLines: 2, // 控制最大行数
-                            overflow: TextOverflow.ellipsis, // 超过时显示省略号
-                          ),
-                        ),
-                        const SizedBox(height: 12.0),
-
-                        //头像和昵称
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            //头像
-                            CircleAvatar(
-                              backgroundImage: AssetImage(item.imagePath),
-                              radius: 13, // 设置圆形头像的半径
-                            ),
-                            const SizedBox(width: 8.0),
-                            //昵称
-                            Text(
-                              item.nickname,
-                              style: const TextStyle(
-                                  fontSize: 12.0,
-                                  height: 1.2,
-                                  color: Colors.black45),
-                            ),
-
-                            const Spacer(),
-                            Text(
-                              item.price,
-                              style: const TextStyle(
-                                fontSize: 15.0,
-                                height: 1.4,
-                                color: Colors.red,
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
           ],
         ),
       ),
@@ -412,10 +263,10 @@ class TextDetails extends StatelessWidget {
                   context: context,
                   builder: (BuildContext context) {
                     return OrderPay(
-                      imagePath: item.imagePath,
-                      nickname: item.nickname,
-                      price: item.price,
-                      description: item.description,
+                      imagePath:  '',
+                      nickname:  '',
+                      price:  '',
+                      description:  '',
                     );
                   },
                 );

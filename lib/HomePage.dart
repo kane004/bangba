@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'addContent.dart';
@@ -5,90 +7,20 @@ import 'package:kanetest/TextDetails.dart';
 import 'Distribute.dart';
 import 'Message.dart';
 import 'MyPage.dart';
+import 'addDistribute.dart' as Content;
 
-//定义一个数据类ImageItem来表示每张图片的信息
-class ImageItem {
-    final String imagePath;
-    final String description;
-    final String nickname;
-    final String price;
-    final String area;
-    final String Ram;
+import 'package:flutter/physics.dart';
 
-
-  ImageItem(
-      {
-        required this.imagePath,
-        required this.description,
-        required this.nickname,
-        required this.price,
-        required this.area,
-        required this.Ram,
-      }
-      );
+void main() {
+  runApp(MaterialApp(
+    title: 'Home App',
+    home: HomePage(),
+  ));
 }
-
-
-//创建一个包含ImageItem对象的列表，用于存储每张图片的信息
-final List<ImageItem> _imageItems = [
-  ImageItem(
-    imagePath: 'images/image1.webp',
-    description: '同城地接导游带你打卡城市各个角落景点帮忙领东西',
-    nickname: '小鑫不信',
-    price: '250.0',
-    area: '深圳',
-    Ram: '￥'
-  ),
-  ImageItem(
-    imagePath: 'images/image2.webp',
-    description: '室内设计装修根据你的要求或者全包设计预算2-10万,提供设计图纸，专业上门制作',
-    nickname: '小朱不朱',
-    price: '130.0',
-    area: '上海',
-    Ram: '￥'
-  ),
-  ImageItem(
-    imagePath: 'images/image3.webp',
-    description: '大学生兼职可以帮忙取快递帮忙表白帮介绍对象根大学生兼职可以帮忙取快递帮忙表白帮介绍对象根',
-    nickname: '小艾不爱',
-    price: '50.0',
-    area: '重庆',
-    Ram: '￥'
-  ),
-  ImageItem(
-    imagePath: 'images/image4.webp',
-    description:  '摄影跟拍户外亲自婚纱都可以不同风格都能驾，随时跟拍内容，保证服务质量',
-    nickname: '小肖不笑',
-    price: '88.0',
-    area: '成都',
-    Ram: '￥'
-  ),
-  ImageItem(
-    imagePath: 'images/image5.webp',
-    description:  '三亚游艇出海游艇出行跟进拍摄2000左右，根据你的喜好进行拍照片和服务',
-    nickname: '小夏不下',
-    price: '500.0',
-    area: '长沙',
-    Ram: '￥'
-  ),
-  ImageItem(
-    imagePath: 'images/image6.webp',
-    description: '兼职伴娘300一天可以帮忙配合表演，不抢新娘风头，绝对配合表演，会唱歌舞蹈等',
-    nickname: '小顾布谷',
-    price: '450.0',
-    area: '北京',
-    Ram: '￥'
-  ),
-
-];
-
 
 
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -96,24 +28,22 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
-
-
-
   final List<Widget> _pages = [
-     HomePageContent(),
-     Distribute('派单'),
-     Message('消息'),
-     MyPage('我的'),
+    const HomePageContent(
+      description: '2',
+      imagePath: 'images/image2.webp',
+      price: '2',
+    ),
+    Distribute(text: "111111", price: "12", imagePath: 'images/woman.png'),
+    Message('消息'),
+    MyPage('我的'),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: _pages[_currentIndex],
-      bottomNavigationBar:
-      BottomNavigationBar(
-
+      bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.green,
@@ -122,10 +52,12 @@ class _HomePageState extends State<HomePage> {
         unselectedFontSize: 14,
         unselectedItemColor: Colors.black,
         selectedIconTheme: const IconThemeData(
-          color: Colors.green,opacity: 1.0,size: 20,
+          color: Colors.green,
+          opacity: 1.0,
+          size: 20,
         ),
-        unselectedIconTheme: const IconThemeData(color: Colors.black,opacity: 1.0,size: 20),
-
+        unselectedIconTheme:
+        const IconThemeData(color: Colors.black, opacity: 1.0, size: 20),
         onTap: (index) {
           setState(() {
             _currentIndex = index;
@@ -133,38 +65,30 @@ class _HomePageState extends State<HomePage> {
         },
         items: const [
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/grey1.png')), // 自定义未选中状态的图片
-            activeIcon: ImageIcon(AssetImage('images/bottom1.png')), // 自定义选中状态的图片
+            icon: ImageIcon(AssetImage('images/grey1.png')),
+            activeIcon: ImageIcon(AssetImage('images/bottom1.png')),
             label: '首页',
-
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/grey2.png')), // 自定义未选中状态的图片
-            activeIcon: ImageIcon(AssetImage('images/bottom2.png')), // 自定义选中状态的图片
+            icon: ImageIcon(AssetImage('images/grey2.png')),
+            activeIcon: ImageIcon(AssetImage('images/bottom2.png')),
             label: '派发',
-
-
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/grey3.png')),// 自定义未选中状态的图片
-            activeIcon: ImageIcon(AssetImage('images/bottom3.png')), // 自定义选中状态的图片
+            icon: ImageIcon(AssetImage('images/grey3.png')),
+            activeIcon: ImageIcon(AssetImage('images/bottom3.png')),
             label: '消息',
-
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/grey4.png')), // 自定义未选中状态的图片
-            activeIcon: ImageIcon(AssetImage('images/bottom4.png')), // 自定义选中状态的图片
+            icon: ImageIcon(AssetImage('images/grey4.png')),
+            activeIcon: ImageIcon(AssetImage('images/bottom4.png')),
             label: '我的',
-
           ),
         ],
       ),
-
-
     );
   }
 }
-
 
 
 final List<Tab> myTabs = <Tab>[
@@ -173,264 +97,284 @@ final List<Tab> myTabs = <Tab>[
   const Tab(text: '同城'),
 ];
 
+class HomePageContent extends StatefulWidget {
+  final String description;
+  final String price;
+  final String imagePath;
 
+  const HomePageContent({
+    required this.description,
+    required this.price,
+    required this.imagePath,
+    Key? key,
+  }) : super(key: key);
 
+  @override
+  _HomePageContentState createState() => _HomePageContentState();
+}
 
-class HomePageContent extends StatelessWidget {
-  const HomePageContent({super.key});
+class _HomePageContentState extends State<HomePageContent> {
+  final List<Map<String, dynamic>> _dataList = [];
+
+  Future<void> _handleRefresh() async {
+    final dbHelper = DatabaseHelper.instance;
+    final data = await dbHelper.fetchData();
+    await Future.delayed(Duration(seconds: 2)); // 模拟2秒的刷新操作
+
+    setState(() {
+      _dataList.clear();
+      _dataList.addAll(data);
+    });
+
+    print('数据获取成功: $data');
+    print('获取到的数据: $_dataList');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    print('调用 initState');
+    _fetchDataFromDatabase(); // 在初始化时查询数据库
+    _handleRefresh(); // 页面首次加载时触发一次刷新
+  }
+
+  Future<void> _fetchDataFromDatabase() async {
+    final dbHelper = DatabaseHelper.instance;
+    final data = await dbHelper.fetchData();
+
+    setState(() {
+      _dataList.clear();
+      _dataList.addAll(data);
+    });
+
+    print('数据获取成功: $data');
+    print('获取到的数据: $_dataList');
+    // 在数据获取成功后触发下拉刷新
+    _handleRefresh();
+  }
+
+  void _showAddContentBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 80),
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AddContent()));
+              },
+              child: Text(
+                '发布技能',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(height: 30),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Content.AddDistribute()));
+              },
+              child: Text(
+                '发布派单',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(height: 30),
+            Text(
+              '发布动态',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  final GlobalKey<RefreshIndicatorState> _refreshKey =
+  GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
     // 使状态栏透明
     return DefaultTabController(
-        length: myTabs.length,
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.grey[100], // 设置AppBar的背景设置灰色
-            elevation: 0, // 去掉AppBar的底部阴影
-            //centerTitle: _currentIndex == 0 ? false : false, // 将标题居中显示
-            title: Center(
-              child: TabBar(
-                  tabs: myTabs,
-                  isScrollable: true,
-                  //是否滚动
-                  indicatorColor: Colors.green,
-                  //指示器颜色
-                  indicatorWeight: 4.0,
-                  //指示器厚度
-                  indicatorPadding:
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-
-                  //indicator 指示器边框样式
-
-                  labelColor: Colors.black,
-                  //选中字体颜色
-                  labelStyle: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                  //选中文字风格
-                  unselectedLabelColor: Colors.grey,
-                  //未选中字体颜色
-                  unselectedLabelStyle: const TextStyle(fontSize: 16) //未选中字体风格
-
-                  ),
+      length: myTabs.length,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.grey[100], // 设置AppBar的背景设置灰色
+          elevation: 0, // 去掉AppBar的底部阴影
+          title: Center(
+            child: TabBar(
+              tabs: myTabs,
+              isScrollable: true,
+              indicatorColor: Colors.green[300],
+              indicatorWeight: 4.0,
+              indicatorPadding:
+              const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              labelColor: Colors.black,
+              labelStyle: const TextStyle(
+                  fontSize: 20, fontWeight: FontWeight.bold),
+              unselectedLabelColor: Colors.grey,
+              unselectedLabelStyle: const TextStyle(fontSize: 16),
             ),
           ),
-          body: TabBarView(
-              children: myTabs
-                  .map((Tab tab) => Center(
-                        child: DecoratedBox(
-                            decoration: BoxDecoration(
-                              color: Colors.grey[100], // 设置灰色背景
-                            ),
-                            child: SingleChildScrollView(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 3.0),
+        ),
+        body: RefreshIndicator(
+          key: _refreshKey,
+          onRefresh: _handleRefresh,
+          child: _dataList.isNotEmpty
+              ? TabBarView(
+            children: myTabs
+                .map(
+                  (Tab tab) => Center(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 3.0,
+                          ),
+                        ),
+                        const SizedBox(height: 4.0),
+                        GridView.builder(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 5.0,
+                          ),
+                          gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 6.0,
+                            mainAxisSpacing: 7.0,
+                            childAspectRatio: 0.6,
+                          ),
+                          itemCount: _dataList.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            final item = _dataList[index];
+                            final description = item['description'];
+                            final price = item['price'].toString();
+                            final imagePath = item['imagePath'];
+
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        TextDetails(
+                                          imagePath: imagePath,
+                                          description: description,
+                                          price: price,
+                                        ),
                                   ),
-                                  const SizedBox(height: 4.0), //主图与顶部之间间距
-
-                                  //主图页
-                                  GridView.builder(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 5.0),
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2, //两个网格
-                                      crossAxisSpacing: 6.0, //横轴间距
-                                      mainAxisSpacing: 7.0, //纵轴间距
-                                      childAspectRatio: 0.6, //宽高比例
-                                    ),
-                                    itemCount: _imageItems.length,
-                                    // 图片项的数量
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    // 禁用GridView的滚动
-                                    itemBuilder: (context, index) {
-                                      final ImageItem item = _imageItems[
-                                          index]; // 获取当前索引处的ImageItem对象
-
-                                      //点击跳转新页面
-                                      return GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  TextDetails(item: item),
-                                            ),
-                                          );
-                                        },
-
-                                        //body图片文本
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-
-                                            color: Colors.white,
-                                            // 设置整块的背景颜色为白色
-
-                                            //borderRadius: BorderRadius.circular(8.0), // 设置圆角半径
-
-                                            borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(8.0),
-                                              // 设置左下角为圆角
-                                              bottomRight: Radius.circular(
-                                                  8.0), // 设置右下角为圆角
-                                            ),
-                                          ),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
-
-                                            children: [
-                                              //主图片
-
-                                              Expanded(
-                                                child: ClipRRect(
-                                                  //borderRadius: BorderRadius.circular(8.0), // 设置圆角半径
-                                                  borderRadius:
-                                                      const BorderRadius.only(
-                                                    topLeft: Radius.circular(0),
-                                                    // 设置左上角为直角
-                                                    topRight: Radius.circular(
-                                                        0), // 设置右上角为直角
-                                                  ),
-
-                                                  child: FractionallySizedBox(
-                                                    widthFactor: 1.0,
-                                                    heightFactor: 1,
-                                                    child: Image.asset(
-                                                      item.imagePath,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(height: 4.0),
-                                              //主文本内容
-
-                                             Padding(
-                                                 padding: EdgeInsets.symmetric(horizontal: 4),
-                                               child:  Column(
-                                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                                   children: [
-                                                     Padding(
-                                                       padding:
-                                                       const EdgeInsets.symmetric(vertical: 2),
-                                                       child: Text(
-                                                         item.description,
-                                                         style: const TextStyle(
-                                                             fontSize: 15.0,
-                                                             height: 1.5,
-                                                             fontWeight:
-                                                             FontWeight.w500),
-                                                         maxLines: 2, // 控制最大行数
-                                                         overflow: TextOverflow
-                                                             .ellipsis, // 超过时显示省略号
-                                                       ),
-                                                     ),
-                                                     const SizedBox(height: 2.0),
-                                                     Row(
-                                                       children: [
-                                                         Text(
-                                                           item.Ram,
-                                                           style: const TextStyle(
-                                                               fontSize: 10.0,
-                                                               //height: 1.2,
-                                                               color: Colors.red),
-                                                         ),
-
-                                                         Text(
-                                                           item.price,
-                                                           style: const TextStyle(
-                                                             fontSize: 15.0,
-                                                             height: 1.4,
-                                                             color: Colors.red,
-                                                           ),
-                                                         ),
-
-                                                       ],
-                                                     ),
-                                                     const SizedBox(height: 12.0),
-                                                     //头像和昵称
-                                                     Row(
-                                                       mainAxisAlignment:
-                                                       MainAxisAlignment.start,
-                                                       children: [
-                                                         //头像
-                                                         CircleAvatar(
-                                                           backgroundImage: AssetImage(
-                                                               item.imagePath),
-                                                           radius: 13, // 设置圆形头像的半径
-                                                         ),
-                                                         const SizedBox(width: 8.0),
-                                                         //昵称
-                                                         Text(
-                                                           item.nickname,
-                                                           style: const TextStyle(
-                                                               fontSize: 12.0,
-                                                               height: 1.2,
-                                                               color: Colors.black45),
-                                                         ),
-
-                                                         const Spacer(),
-                                                         Text(
-                                                           item.area,
-                                                           style: const TextStyle(
-                                                             fontSize: 13.0,
-                                                             color: Colors.grey,
-                                                           ),
-                                                         )
-                                                       ],
-                                                     )
-                                                   ],
-                                                 )
-                                             ),
-                                            ],
+                                );
+                              },
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(8.0),
+                                    bottomRight: Radius.circular(8.0),
+                                  ),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.stretch,
+                                  children: [
+                                    Expanded(
+                                      child: ClipRRect(
+                                        borderRadius:
+                                        const BorderRadius.only(
+                                          topLeft: Radius.circular(0),
+                                          topRight: Radius.circular(0),
+                                        ),
+                                        child: FractionallySizedBox(
+                                          widthFactor: 1,
+                                          child: Image.file(
+                                            File(imagePath),
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
-                                      );
-                                    },
-                                  ),
-                                ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4.0),
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets.all(4.0),
+                                      child: Text(
+                                        description,
+                                        style: const TextStyle(
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        maxLines: 2,
+                                        overflow:
+                                        TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        left: 4.0,
+                                        right: 4.0,
+                                      ),
+                                      child: Text(
+                                        '$price',
+                                        style: const TextStyle(
+                                          fontSize: 12.0,
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            )),
-                      ))
-                  .toList()),
-
-          /***
-       *   + 按钮
-       *
-       * */
-
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // 点击按钮跳转到新页面
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const AddContentPage(), // 新页面的构建方法
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            )
+                .toList(),
+          )
+              : Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'images/noDate.png',
+                  width: 200,
+                  height: 200,
+                ),
+                const SizedBox(height: 8.0),
+                Text(
+                  '暂无数据',
+                  style: TextStyle(fontSize: 16.0, color: Colors.grey),
+                ),
+              ],
             ),
-          );
-        },
-        backgroundColor: Colors.green,
-        child: const Icon(Icons.add),
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _showAddContentBottomSheet,
+          backgroundColor: Colors.green,
+          child: const Icon(Icons.add),
+        ),
+
       ),
-
-      )
     );
-
   }
 }
 
-
-void main() {
-
-  runApp(const MaterialApp(
-    title: 'Home App',
-    home: HomePage(),
-  ));
-}

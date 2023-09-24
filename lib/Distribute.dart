@@ -1,162 +1,157 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
-import 'DistributeDetail.dart';
+import 'addDistribute.dart';
+// 导入数据库帮助类
 
 class Distribute extends StatefulWidget {
-  const Distribute(String s, {Key? key}) : super(key: key);
+  final String text;
+  final String price;
+  final String imagePath;
+  const Distribute({required this.text, required this.price, required this.imagePath,Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _WaitingToDoState createState() => _WaitingToDoState();
+  _DistributeState createState() => _DistributeState();
 }
 
-//定义一个数据类ImageItem来表示每张图片的信息
-class ImageItem {
-  final String imagePath;
-  final String description;
-  final String nickname;
-  final String price;
+class _DistributeState extends State<Distribute> {
+  List<Map<String, dynamic>> _dataList = [];
 
-  ImageItem(
-    {
-      required this.imagePath,
-      required this.description,
-      required this.nickname,
-      required this.price,
-    }
-    );
-}
+  @override
+  void initState() {
+    super.initState();
+    _fetchDataFromDatabase(); // 在初始化时查询数据库
+  }
 
-final List<ImageItem> _dispatchTexts = [
+  void _fetchDataFromDatabase() async {
+    final dbHelper = DatabaseHelper.instance;
+    final data = await dbHelper.fetchData();
 
-  ImageItem(
-    imagePath: 'images/image1.webp',
-    description: '每周六需要一个上门遛狗大学生，30一小时，8小时工作时间提供假日、工作日、出差旅游，上门喂养猫咪、遛狗及其他小宠物服务。上门会自带手套，口罩，鞋套，垃圾袋。',
-    nickname: '小胡不糊',
-    price: '￥100',
-  ),
+    setState(() {
+      _dataList.clear(); // 清空数据列表
+      // 插入到列表的开头，以便最新的数据在前面
+      _dataList.insertAll(0, data);
+    });
+    print('数据获取成功: $data');
+    print('获取到的数据: $_dataList');
+  }
+  void clearDataInDatabase() async {
+    final dbHelper = DatabaseHelper.instance;
 
-  ImageItem(
-    imagePath: 'images/image2.webp',
-    description: '下周日需要伴娘3名，要求165以上，形象一般即可,不能跟新娘抢风头',
-    nickname: '小明不明',
-    price: '￥200',
-  ),
-  ImageItem(
-    imagePath: 'images/image3.webp',
-    description: '找一个小三劝退师，提供小三地址名字5天时间',
-    nickname: '小蔡不菜',
-    price: '￥300',
-  ),
-  ImageItem(
-    imagePath: 'images/image4.webp',
-    description: '找一个连麦哄睡包月，要求声音好听，会讲故事，一个月2000',
-    nickname: '小多不多',
-    price: '￥210',
-  ),
+    // 清空数据库中的数据
+    await dbHelper.clearData();
 
-];
+    // 更新页面
+    setState(() {
+      // 更新页面的逻辑...
+    });
+  }
 
-class _WaitingToDoState extends State<Distribute> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
-
         title: const Text(
           '派单',
           style: TextStyle(color: Colors.black, fontSize: 25.0),
-          // 设置标题字体颜色为黑色，字体大小为30
         ),
-        centerTitle: false, // 将标题居左显示
-        elevation: 0, // 去掉AppBar的底部阴影
-        backgroundColor: Colors.grey[200], // 将AppBar的背景设置为透明
+
+        centerTitle: false,
+        elevation: 0,
+        backgroundColor: Colors.grey[100],
       ),
-
-
-      body: Container(
-        color: Colors.grey[200],
-        child: ListView.builder(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),//矩形边距
-          itemCount: _dispatchTexts.length,
-          itemBuilder: (context, index) {
-            final ImageItem item = _dispatchTexts[index];
-            return GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context, MaterialPageRoute(builder: (context) =>  DistributeDetail(item: item,
-
-                ),
-                ),
-                );
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0),//矩形与矩形间距
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8.0),//矩形边角
-                  ),
-                  padding: const EdgeInsets.all(20.0),//矩形高度
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 0.5),
-                      Text(
-                        item.description,
-                        maxLines: 2,// 设置最大显示行数为2
-                        overflow: TextOverflow.ellipsis,// 超过2行时使用省略号
-                        style: const TextStyle(fontSize: 16.0),
-                      ),
-                      const SizedBox(height: 40.0), // 调整上下间距
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            backgroundImage: AssetImage(item.imagePath),
-                            radius: 15,
-                          ),
-                          const SizedBox(width: 8.0),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+      body: _dataList.isNotEmpty
+          ? Container(
+              color: Colors.grey[100],
+              child: ListView.builder(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                itemCount: _dataList.length, // 使用数据列表的长度作为项目数
+                itemBuilder: (context, index) {
+                  final item = _dataList[index];
+                  final text = item['text'];
+                  final price = item['price'].toString();
+                  final imagePath = item['imagePath'];
+                  return GestureDetector(
+                    onTap: () {
+                      // 处理项目点击事件
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 0.5),
+                            Text(
+                              text,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(fontSize: 16.0),
+                            ),
+                            const SizedBox(height: 40.0),
+                            Row(
                               children: [
+                                const SizedBox(width: 8.0),
+                                CircleAvatar(
+                                  backgroundImage: imagePath != null &&
+                                          imagePath.isNotEmpty
+                                      ? Image(image: Image.file(File(imagePath)).image).image
+                                  //没有数据显示默认头像
+                                      : AssetImage(
+                                          'images/image3.webp'),
+                                  radius: 13,
+                                ),
+                                SizedBox(width: 8),
                                 Text(
-                                  item.nickname,
+                                  price,
                                   style: const TextStyle(
-                                    fontSize: 13.0,
-                                    color: Colors.black54,
+                                    fontSize: 16.0,
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                const SizedBox(height: 4.0), // 调整上下间距
-
                               ],
                             ),
-                          ),
-                          Text(
-                            item.price,
-                            style: const TextStyle(
-                                fontSize: 16.0,
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
-
+            )
+          : Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'images/noDate.png', // 暂无数据的 UI 图片路径
+                    width: 200,
+                    height: 200,
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    '暂无数据',
+                    style: TextStyle(fontSize: 16.0,color: Colors.grey),
+                  ),
+                ],
+              ),
+            ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // 执行清空操作
+          clearDataInDatabase();
+        },
+        child: Icon(Icons.delete),
       ),
-
-
     );
   }
 }
-
-
-

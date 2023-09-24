@@ -1,3 +1,8 @@
+
+
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'HomePage.dart';
@@ -29,7 +34,9 @@ class _LoginPageState extends State<LoginPage> {
   String errorText = '';
 
   bool _isAgreedToTerms = false;
-  String termsAndConditions = ''; // 用于存储服务协议内容
+  String termsAndConditions = '';
+
+
 
   void _login() {
     String username = _usernameController.text.trim();
@@ -54,15 +61,11 @@ class _LoginPageState extends State<LoginPage> {
       );
     } else if (username.isEmpty || password.isEmpty || verificationCode.isEmpty) {
       setState(() {
-        errorText = '请填写有效信息';
-      });
-    } else if (verificationCode != '1234') {
-      setState(() {
-        errorText = '验证码错误';
+        _showErrorDialog('请填写有效信息') ;
       });
     } else if(username.length < 11){
       setState(() {
-        errorText = '手机号输入有误';
+        _showErrorDialog('手机号输入有误');
       });
     } else {
       // 登录成功，跳转到首页
@@ -78,7 +81,20 @@ class _LoginPageState extends State<LoginPage> {
       _verificationCodeController.text = '1234';
     });
   }
+  void _showErrorDialog(String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('提示'),
+        content: Text(errorMessage),
+      ),
+    );
 
+    // 自动关闭弹窗
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.of(context).pop();
+    });
+  }
 
 
 
@@ -118,10 +134,10 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              Spacer(),
+              SizedBox(height: 60,),
 
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Theme(
                   data: Theme.of(context).copyWith(
                     // 创建一个新的主题样式，并将 cursorColor 设置为黑色
@@ -169,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 10,),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Theme(
                   data: Theme.of(context).copyWith(
                     // 创建一个新的主题样式，并将 cursorColor 设置为黑色
@@ -193,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: '请输入验证码',
                         hintStyle: TextStyle(
                             color: Colors.grey,
-                            fontSize: 16
+                            fontSize: 16,
                         )
                     ),
                   ),
@@ -201,7 +217,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               ),
               const SizedBox(height: 20),
-              Padding(padding: const EdgeInsets.symmetric(horizontal: 20),
+              Padding(padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: ElevatedButton(
                   onPressed: _login,
                   style: ElevatedButton.styleFrom(
@@ -221,12 +237,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              const Spacer(),
+              SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 0.1), // 调整水平间距
+                    padding: const EdgeInsets.symmetric(horizontal:1), // 调整水平间距
                     child: Checkbox(
                       value: _isAgreedToTerms,
                       activeColor: Colors.green,
@@ -310,6 +326,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
+
 
             ],
           ),

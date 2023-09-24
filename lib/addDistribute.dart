@@ -1,14 +1,10 @@
-
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kanetest/HomePage.dart';
+import 'package:kanetest/Distribute.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
-
 
 class DatabaseHelper {
   DatabaseHelper._privateConstructor();
@@ -21,70 +17,71 @@ class DatabaseHelper {
     return _database!;
   }
 
-
   Future<Database> _initDatabase() async {
-    final directory = await getApplicationDocumentsDirectory();
-    final path = join(directory.path, 'my_database.db');
+    final path = join(await getDatabasesPath(), 'my_database.db');
     return await openDatabase(
       path,
-      version: 3,
+      version: 2, // 增加版本号以触发迁移。
       onCreate: _createDatabase,
-      onUpgrade: _upgradeDatabase,
+      onUpgrade: _upgradeDatabase, // 添加此行以处理数据库迁移。
     );
   }
 
   //新建数据库
   Future<void> _createDatabase(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE Skill (
+      CREATE TABLE my_table (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        description TEXT,
+        text TEXT,
         price REAL,
         imagePath TEXT
       )
     ''');
-
   }
 
 
-//更新数据库字段
+  //更新数据库字段
   Future<void> _upgradeDatabase(Database db, int oldVersion, int newVersion) async {
-
+    if (oldVersion < 2) {
+      await db.execute('''
+        ALTER TABLE my_table
+        
+      ''');
+    }
   }
 
- //插入数据
+  //插入数据
   Future<int> insertData(Map<String, dynamic> row) async {
     final db = await database;
-    final result = await db.insert('Skill', row);
+    final result = await db.insert('my_table', row);
     print('插入数据成功'); // 添加打印语句
     return result;
   }
- //获取数据
+  //获取数据
   Future<List<Map<String, dynamic>>> fetchData() async {
     final db = await database;
-    final result = await db.query('Skill');
+    final result = await db.query('my_table');
     print('查询结果: $result'); // 添加打印语句
     return result;
   }
-
-  //清空数据
+ //清空数据
   Future<void> clearData() async {
     final db = await database;
-    await db.delete('Skill');
+    await db.delete('my_table');
   }
 
 }
 
 
 
-class AddContent extends StatefulWidget {
-  const AddContent({super.key});
+class AddDistribute extends StatefulWidget {
+  const AddDistribute({super.key});
 
   @override
-  _AddContentState createState() => _AddContentState();
+  _AddDistributeState createState() => _AddDistributeState();
 }
 
-class _AddContentState extends State<AddContent> {
+class _AddDistributeState extends State<AddDistribute> {
   final TextEditingController _textController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   String imagePath = ''; // 存储图像路径
@@ -104,22 +101,14 @@ class _AddContentState extends State<AddContent> {
   }
 
   void _saveDataToDatabase(BuildContext context) async {
-    final description = _textController.text;
+    final text = _textController.text;
     final price = _priceController.text;
-    print('Description: $description');
-    print('Price: $price');
-    print('Inserting data to database...');
-
 
     final dbHelper = DatabaseHelper.instance;
     await dbHelper.insertData({
-      'description': description,
+      'text': text,
       'price': price,
-      'imagePath': imagePath,
-    }
-
-    );
-
+      'imagePath': imagePath});
 
     // 清空文本框和图像路径
     _textController.clear();
@@ -128,16 +117,10 @@ class _AddContentState extends State<AddContent> {
       imagePath = '';
     });
 
-
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => HomePageContent(
-          description: description,
-            price: price,
-            imagePath: imagePath,
-
-        ),
+        builder: (context) => Distribute(text: text, price: price, imagePath: imagePath),
       ),
     );
   }
@@ -156,16 +139,14 @@ class _AddContentState extends State<AddContent> {
             TextField(
               controller: _textController,
               decoration: const InputDecoration(
-                  hintText: '输入内容...',
-                  hintStyle: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey
-                  )
+                hintText: '输入内容...',
+                hintStyle: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey
+                )
               ),
             ),
-            SizedBox(height: 20),
-
-
+            SizedBox(height: 20,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -255,8 +236,8 @@ class _AddContentState extends State<AddContent> {
             ),
           ],
         ),
-      ),
-    );
+        ),
+      );
 
   }
 }
