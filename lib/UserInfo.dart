@@ -1,28 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:kanetest/UserInfo.dart';
 
-class SetPerson extends StatefulWidget {
-  const SetPerson({Key? key}) : super(key: key);
+class UserInfo extends StatefulWidget {
+  const UserInfo({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _WaitingToDoState createState() => _WaitingToDoState();
+  _UserInfoState createState() => _UserInfoState();
 }
 
-class _WaitingToDoState extends State<SetPerson> {
+class _UserInfoState extends State<UserInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         iconTheme: const IconThemeData(color: Colors.black), // 设置返回按键的颜色为黑色
-        title: const Text(
-          '设置',
+        title:
+
+        const Text(
+          '个人资料',
           style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.black),
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+              color: Colors.black
+
+          ),
         ),
 
         elevation: 0, // 去掉AppBar的底部阴影
         backgroundColor: Colors.grey[100], // 将AppBar的背景设置为透明
+
       ),
       body: Container(
         color: Colors.grey[100],
@@ -30,184 +37,166 @@ class _WaitingToDoState extends State<SetPerson> {
         child: Column(
           children: [
             Container(
-              height: 128,
+              height: 360,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 24.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24.0),
               margin: const EdgeInsets.all(10.0),
-              child: Column(
+              child:  Column(
                 children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const UserInfo()));
-                    },
-                    child: const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          children: [
-                            Text(
-                              '基本资料',
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
+                  const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        children: [
+                          Text(
+                            '头像',
+                            style: TextStyle(
+                              fontSize: 16,
                             ),
-                            Spacer(),
-                            Icon(Icons.chevron_right, color: Colors.grey),
-                          ],
-                        )
-                    ),
+                          ),
+
+                          Spacer(),
+                          Icon(Icons.chevron_right,color: Colors.grey),
+
+                        ],
+                      )
                   ),
-                  const Spacer(),
+                  SizedBox(height: 16),
                   Container(
                     height: 1.0,
                     color: Colors.grey[100],
                     //margin: const EdgeInsets.symmetric(horizontal: 1.0), // 左右边距
                   ),
-                  const Spacer(),
+                 SizedBox(height: 16),
+
                   const Align(
                       alignment: Alignment.centerLeft,
                       child: Row(
                         children: [
                           Text(
-                            '安全设置',
+                            '昵称',
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
+
                           Spacer(),
                           Icon(Icons.chevron_right, color: Colors.grey),
+
                         ],
-                      )),
-                ],
-              ),
-            ),
-            const SizedBox(height: 8),
-            Container(
-              height: 200,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 24.0),
-              margin: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: [
-                          Text(
-                            '个人隐私',
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                          Spacer(),
-                          Icon(Icons.chevron_right, color: Colors.grey),
-                        ],
-                      )),
-                  const Spacer(),
+                      )
+                  ),
+                  SizedBox(height: 16),
                   Container(
                     height: 1.0,
                     color: Colors.grey[100],
+                    //margin: const EdgeInsets.symmetric(horizontal: 1.0), // 左右边距
                   ),
-                  const Spacer(),
+                  SizedBox(height: 16),
                   const Align(
                       alignment: Alignment.centerLeft,
                       child: Row(
                         children: [
                           Text(
-                            '清除缓存',
+                            '性别',
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
+
                           Spacer(),
-                          Icon(Icons.chevron_right, color: Colors.grey),
+                          Icon(Icons.chevron_right,color: Colors.grey),
+
                         ],
-                      )),
-                  const Spacer(),
+                      )
+                  ),
+                  SizedBox(height: 16),
                   Container(
                     height: 1.0,
                     color: Colors.grey[100],
+                    //margin: const EdgeInsets.symmetric(horizontal: 1.0), // 左右边距
                   ),
-                  const Spacer(),
+                  SizedBox(height: 16),
                   const Align(
                       alignment: Alignment.centerLeft,
                       child: Row(
                         children: [
                           Text(
-                            '通知信息',
+                            '年龄',
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
+
                           Spacer(),
-                          Icon(Icons.chevron_right, color: Colors.grey),
+                          Icon(Icons.chevron_right,color: Colors.grey),
+
                         ],
-                      )),
-                ],
-              ),
-            ),
-            const SizedBox(height: 8),
-            Container(
-              height: 128,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 24.0),
-              margin: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: [
-                          Text(
-                            '关于帮呗',
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                          Spacer(),
-                          Icon(Icons.chevron_right, color: Colors.grey),
-                        ],
-                      )),
-                  const Spacer(),
+                      )
+                  ),
+                  SizedBox(height: 16),
                   Container(
                     height: 1.0,
                     color: Colors.grey[100],
+                    //margin: const EdgeInsets.symmetric(horizontal: 1.0), // 左右边距
                   ),
-                  const Spacer(),
+                  SizedBox(height: 16),
                   const Align(
                       alignment: Alignment.centerLeft,
                       child: Row(
                         children: [
                           Text(
-                            '退出登录',
+                            '地区',
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
+
                           Spacer(),
-                          Icon(Icons.chevron_right, color: Colors.grey),
+                          Icon(Icons.chevron_right,color: Colors.grey),
+
                         ],
-                      )),
+                      )
+                  ),
+                  SizedBox(height: 16),
+                  Container(
+                    height: 1.0,
+                    color: Colors.grey[100],
+                    //margin: const EdgeInsets.symmetric(horizontal: 1.0), // 左右边距
+                  ),
+                  SizedBox(height: 16),
+                  const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        children: [
+                          Text(
+                            '简介',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+
+                          Spacer(),
+                          Icon(Icons.chevron_right,color: Colors.grey),
+
+                        ],
+                      )
+                  ),
                 ],
               ),
             ),
+
+
+
           ],
         ),
       ),
+
+
+
     );
+
   }
 }

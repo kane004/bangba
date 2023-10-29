@@ -21,7 +21,7 @@ class DatabaseHelper {
     final path = join(await getDatabasesPath(), 'my_database.db');
     return await openDatabase(
       path,
-      version: 2, // 增加版本号以触发迁移。
+      version: 3, // 增加版本号以触发迁移。
       onCreate: _createDatabase,
       onUpgrade: _upgradeDatabase, // 添加此行以处理数据库迁移。
     );
@@ -33,8 +33,8 @@ class DatabaseHelper {
       CREATE TABLE my_table (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         text TEXT,
-        price REAL,
-        imagePath TEXT
+        price REAL
+     
       )
     ''');
   }
@@ -84,20 +84,14 @@ class AddDistribute extends StatefulWidget {
 class _AddDistributeState extends State<AddDistribute> {
   final TextEditingController _textController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
-  String imagePath = ''; // 存储图像路径
+
   String price = ''; // 添加 price 变量
 
   Future<void> _getImageFromGallery() async {
     final picker = ImagePicker();
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
-    if (pickedFile != null) {
-      setState(() {
-        imagePath = pickedFile.path;
-      });
-    } else {
-      // 用户取消了选择图片的操作
-    }
+
   }
 
   void _saveDataToDatabase(BuildContext context) async {
@@ -108,19 +102,17 @@ class _AddDistributeState extends State<AddDistribute> {
     await dbHelper.insertData({
       'text': text,
       'price': price,
-      'imagePath': imagePath});
+      });
 
     // 清空文本框和图像路径
     _textController.clear();
     _priceController.clear();
-    setState(() {
-      imagePath = '';
-    });
+
 
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => Distribute(text: text, price: price, imagePath: imagePath),
+        builder: (context) => Distribute(text: text, price: price ),
       ),
     );
   }
@@ -129,115 +121,142 @@ class _AddDistributeState extends State<AddDistribute> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('发布派单'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: Row(
           children: [
-            TextField(
-              controller: _textController,
-              decoration: const InputDecoration(
-                hintText: '输入内容...',
-                hintStyle: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey
-                )
+            const Text(
+              '添加技能',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+                color: Colors.black,
               ),
             ),
-            SizedBox(height: 20,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  '价格',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () async {
-                    final newPrice = await showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text(
-                            '输入价格',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          content: TextField(
-                            controller: _priceController,
-                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context, _priceController.text);
-                              },
-                              child: const Text('保存'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-
-                    if (newPrice != null) {
-                      setState(() {
-                        price = newPrice;
-                      });
-                    }
-                  },
-                  child: Row(
-                    children: [
-                      Text(
-                        '￥$price',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(width: 8.0),
-                      const Text(
-                        '>',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-
-
-            const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: _getImageFromGallery,
-              child:  Text('选择相册图片'),
-            ),
-            const SizedBox(height: 16.0),
-            imagePath.isNotEmpty
-                ? Image.file(
-              File(imagePath),
-              height: 100.0,
-              width: 100.0,
-              fit: BoxFit.cover,
-            )
-                : Container(),
-            const SizedBox(height: 16.0),
+            const Spacer(),
             ElevatedButton(
               onPressed: () => _saveDataToDatabase(context),
-              child: Text('保存'),
+
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.green[400],
+                elevation: 0, // 去掉阴影效果
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32.0),
+                ),
+              ),
+              child: const Text(
+                '发布',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         ),
-        ),
-      );
+        elevation: 0,
+        backgroundColor: Colors.grey[100],
+      ),
+      body: Container(
+        color: Colors.grey[100],
+        // 设置整个页面的背景颜色为白色
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+            children: [
 
+              SizedBox(height: 20),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Colors.white, // 设置灰色背景
+                  borderRadius: BorderRadius.circular(8.0), // 圆角
+                ),
+                child: TextField(
+                  controller: _textController,
+                  decoration: const InputDecoration(
+                    hintText: '输入内容...',
+                    hintStyle: TextStyle(fontSize: 16, color: Colors.grey),
+                    border: InputBorder.none, // 移除下划线
+                    contentPadding: EdgeInsets.all(0), // 移除默认的内边距
+                  ),
+                  maxLines: null, // 允许文本自动换行
+                ),
+              ),
+
+
+
+
+
+              const SizedBox(height: 20.0),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    '价格',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      final newPrice = await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text(
+                              '输入价格',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            content: TextField(
+                              controller: _priceController,
+                              keyboardType:
+                              const TextInputType.numberWithOptions(decimal: true),
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context, _priceController.text);
+                                },
+                                child: const Text('保存'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+
+                      if (newPrice != null) {
+                        setState(() {
+                          price = newPrice;
+                        });
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        Text(
+                          '$price',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                        Icon(Icons.chevron_right, color: Colors.grey),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
+            ]
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _priceController.dispose();
+    super.dispose();
   }
 }

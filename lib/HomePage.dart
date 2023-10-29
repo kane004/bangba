@@ -1,5 +1,6 @@
 import 'dart:io';
 
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'addContent.dart';
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage> {
       imagePath: 'images/image2.webp',
       price: '2',
     ),
-    Distribute(text: "111111", price: "12", imagePath: 'images/woman.png'),
+    Distribute(text: "111111", price: "12",),
     Message('消息'),
     MyPage('我的'),
   ];
@@ -43,51 +44,250 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.green,
-        backgroundColor: Colors.white,
-        selectedFontSize: 14,
-        unselectedFontSize: 14,
-        unselectedItemColor: Colors.black,
-        selectedIconTheme: const IconThemeData(
-          color: Colors.green,
-          opacity: 1.0,
-          size: 20,
-        ),
-        unselectedIconTheme:
-        const IconThemeData(color: Colors.black, opacity: 1.0, size: 20),
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _showAddContentBottomSheet(context);
         },
-        items: const [
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/grey1.png')),
-            activeIcon: ImageIcon(AssetImage('images/bottom1.png')),
-            label: '首页',
+
+        elevation: 0,
+        child: Image.asset(
+          'images/bang.png', // 您的自定义图片路径
+          width: 70, // 图片宽度
+          height: 70, // 图片高度
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        notchMargin: 8.0,
+        child: Container(
+          height: 56,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _currentIndex = 0;
+                  });
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      _currentIndex == 0
+                          ? 'images/bottom1.png' // 自定义选中图片路径
+                          : 'images/grey1.png', // 自定义未选中图片路径
+                      width: 24, // 图片宽度
+                      height: 24, // 图片高度
+                    ),
+                    Text(
+                      '首页',
+                      style: TextStyle(
+                        fontSize: 12.0, // 文本大小
+                        color: _currentIndex == 0
+                            ? Colors.green // 自定义选中颜色
+                            : Colors.grey, // 自定义未选中颜色
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _currentIndex = 1;
+                  });
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      _currentIndex == 1
+                          ? 'images/bottom2.png' // 自定义选中图片路径
+                          : 'images/grey2.png', // 自定义未选中图片路径
+                      width: 24, // 图片宽度
+                      height: 24, // 图片高度
+                    ),
+                    Text(
+                      '派单',
+                      style: TextStyle(
+                        fontSize: 12.0, // 文本大小
+                        color: _currentIndex == 1
+                            ? Colors.green // 自定义选中颜色
+                            : Colors.grey, // 自定义未选中颜色
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _currentIndex = 2;
+                  });
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      _currentIndex == 2
+                          ? 'images/bottom3.png' // 自定义选中图片路径
+                          : 'images/grey3.png', // 自定义未选中图片路径
+                      width: 24, // 图片宽度
+                      height: 24, // 图片高度
+                    ),
+                    Text(
+                      '消息',
+                      style: TextStyle(
+                        fontSize: 12.0, // 文本大小
+                        color: _currentIndex == 2
+                            ? Colors.green // 自定义选中颜色
+                            : Colors.grey, // 自定义未选中颜色
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _currentIndex = 3;
+                  });
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      _currentIndex == 3
+                          ? 'images/bottom4.png' // 自定义选中图片路径
+                          : 'images/grey4.png', // 自定义未选中图片路径
+                      width: 24, // 图片宽度
+                      height: 24, // 图片高度
+                    ),
+                    Text(
+                      '我都',
+                      style: TextStyle(
+                        fontSize: 12.0, // 文本大小
+                        color: _currentIndex == 3
+                            ? Colors.green // 自定义选中颜色
+                            : Colors.grey, // 自定义未选中颜色
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/grey2.png')),
-            activeIcon: ImageIcon(AssetImage('images/bottom2.png')),
-            label: '派发',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/grey3.png')),
-            activeIcon: ImageIcon(AssetImage('images/bottom3.png')),
-            label: '消息',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/grey4.png')),
-            activeIcon: ImageIcon(AssetImage('images/bottom4.png')),
-            label: '我的',
-          ),
-        ],
+        )
       ),
     );
   }
+}
+
+
+void _showAddContentBottomSheet(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    builder: (context) {
+      return Container(
+        color: Colors.grey[100],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 80),
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AddContent()));
+              },
+              child: Container(
+                height: 80,
+                width: 300,
+                decoration: BoxDecoration(
+                  color: Colors.green[200],
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              padding: EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+              child:  Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '发布技能',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    '发布你的能力接单~',
+                    style: TextStyle(fontSize: 13, color: Colors.white),
+                  ),
+                ],
+              )
+              )
+            ),
+            SizedBox(height: 20),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Content.AddDistribute()));
+              },
+                child: Container(
+                  height: 80,
+                  width: 300,
+                  decoration: BoxDecoration(
+                    color: Colors.pink[200],
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+                  child:  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '发布派单',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        '有什么可以帮您的~',
+                        style: TextStyle(fontSize: 13, color: Colors.white),
+                      ),
+                    ],
+                  )
+                )
+            ),
+            SizedBox(height: 20),
+            Container(
+              height: 80,
+              width: 300,
+              decoration: BoxDecoration(
+                color: Colors.blue[200],
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+              child:  Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '发布动态',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    '发布心情~',
+                    style: TextStyle(fontSize: 13, color: Colors.white),
+                  ),
+                ],
+              )
+            )
+          ],
+        ),
+      );
+    },
+  );
 }
 
 
@@ -153,47 +353,19 @@ class _HomePageContentState extends State<HomePageContent> {
     _handleRefresh();
   }
 
-  void _showAddContentBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 80),
-            InkWell(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AddContent()));
-              },
-              child: Text(
-                '发布技能',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(height: 30),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Content.AddDistribute()));
-              },
-              child: Text(
-                '发布派单',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(height: 30),
-            Text(
-              '发布动态',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ],
-        );
-      },
-    );
+  void clearDataInDatabase() async {
+    final dbHelper = DatabaseHelper.instance;
+
+    // 清空数据库中的数据
+    await dbHelper.clearData();
+
+    // 更新页面
+    setState(() {
+      // 更新页面的逻辑...
+    });
   }
+
+
 
   final GlobalKey<RefreshIndicatorState> _refreshKey =
   GlobalKey<RefreshIndicatorState>();
@@ -205,7 +377,7 @@ class _HomePageContentState extends State<HomePageContent> {
       length: myTabs.length,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.grey[100], // 设置AppBar的背景设置灰色
+          backgroundColor: Colors.grey[50], // 设置AppBar的背景设置灰色
           elevation: 0, // 去掉AppBar的底部阴影
           title: Center(
             child: TabBar(
@@ -235,115 +407,109 @@ class _HomePageContentState extends State<HomePageContent> {
                   decoration: BoxDecoration(
                     color: Colors.grey[100],
                   ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 3.0,
-                          ),
-                        ),
-                        const SizedBox(height: 4.0),
-                        GridView.builder(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 5.0,
-                          ),
-                          gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 6.0,
-                            mainAxisSpacing: 7.0,
-                            childAspectRatio: 0.6,
-                          ),
-                          itemCount: _dataList.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            final item = _dataList[index];
-                            final description = item['description'];
-                            final price = item['price'].toString();
-                            final imagePath = item['imagePath'];
 
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        TextDetails(
-                                          imagePath: imagePath,
-                                          description: description,
-                                          price: price,
-                                        ),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(8.0),
-                                    bottomRight: Radius.circular(8.0),
-                                  ),
+                child:  SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+
+                      GridView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0,
+                        ),
+                        gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 6.0,
+                          mainAxisSpacing: 8.0, //图片与图片的高度间距
+                          childAspectRatio: 0.6, //矩形高度伸缩比
+                        ),
+                        itemCount: _dataList.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final item = _dataList[index];
+                          final description = item['description'];
+                          final price = item['price'].toString();
+                          final imagePath = item['imagePath'];
+
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      TextDetails(
+                                        imagePath: imagePath,
+                                        description: description,
+                                        price: price,
+                                      ),
                                 ),
-                                child: Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.stretch,
-                                  children: [
-                                    Expanded(
-                                      child: ClipRRect(
-                                        borderRadius:
-                                        const BorderRadius.only(
-                                          topLeft: Radius.circular(0),
-                                          topRight: Radius.circular(0),
-                                        ),
-                                        child: FractionallySizedBox(
-                                          widthFactor: 1,
-                                          child: Image.file(
-                                            File(imagePath),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4.0),
-                                    Padding(
-                                      padding:
-                                      const EdgeInsets.all(4.0),
-                                      child: Text(
-                                        description,
-                                        style: const TextStyle(
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        maxLines: 2,
-                                        overflow:
-                                        TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        left: 4.0,
-                                        right: 4.0,
-                                      ),
-                                      child: Text(
-                                        '$price',
-                                        style: const TextStyle(
-                                          fontSize: 12.0,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                              );
+                            },
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(8.0),
+                                  bottomRight: Radius.circular(8.0),
                                 ),
                               ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                              child: Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.stretch,
+                                children: [
+                                  Expanded(
+                                    child: ClipRRect(
+                                      borderRadius:
+                                      const BorderRadius.only(
+                                        topLeft: Radius.circular(0),
+                                        topRight: Radius.circular(0),
+                                      ),
+                                      child: FractionallySizedBox(
+                                        widthFactor: 1,
+                                        child: Image.file(
+                                          File(imagePath),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4.0),
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.all(4.0),
+                                    child: Text(
+                                      description,
+                                      style: const TextStyle(
+                                        fontSize: 15.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      maxLines: 2,
+                                      overflow:
+                                      TextOverflow.ellipsis,
+                                    ),
+                                  ),
+
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 4,vertical: 4),
+                                    child: Text(
+                                      '$price',
+                                      style: const TextStyle(
+                                        fontSize: 15.0,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
+                  ),
+
                 ),
               ),
             )
@@ -366,12 +532,9 @@ class _HomePageContentState extends State<HomePageContent> {
               ],
             ),
           ),
+
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _showAddContentBottomSheet,
-          backgroundColor: Colors.green,
-          child: const Icon(Icons.add),
-        ),
+
 
       ),
     );

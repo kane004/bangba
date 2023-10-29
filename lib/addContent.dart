@@ -1,5 +1,3 @@
-
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -9,9 +7,9 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-
 class DatabaseHelper {
   DatabaseHelper._privateConstructor();
+
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
   static Database? _database;
 
@@ -20,7 +18,6 @@ class DatabaseHelper {
     _database = await _initDatabase();
     return _database!;
   }
-
 
   Future<Database> _initDatabase() async {
     final directory = await getApplicationDocumentsDirectory();
@@ -43,23 +40,21 @@ class DatabaseHelper {
         imagePath TEXT
       )
     ''');
-
   }
-
 
 //更新数据库字段
-  Future<void> _upgradeDatabase(Database db, int oldVersion, int newVersion) async {
+  Future<void> _upgradeDatabase(
+      Database db, int oldVersion, int newVersion) async {}
 
-  }
-
- //插入数据
+  //插入数据
   Future<int> insertData(Map<String, dynamic> row) async {
     final db = await database;
     final result = await db.insert('Skill', row);
     print('插入数据成功'); // 添加打印语句
     return result;
   }
- //获取数据
+
+  //获取数据
   Future<List<Map<String, dynamic>>> fetchData() async {
     final db = await database;
     final result = await db.query('Skill');
@@ -72,10 +67,7 @@ class DatabaseHelper {
     final db = await database;
     await db.delete('Skill');
   }
-
 }
-
-
 
 class AddContent extends StatefulWidget {
   const AddContent({super.key});
@@ -110,16 +102,12 @@ class _AddContentState extends State<AddContent> {
     print('Price: $price');
     print('Inserting data to database...');
 
-
     final dbHelper = DatabaseHelper.instance;
     await dbHelper.insertData({
       'description': description,
       'price': price,
       'imagePath': imagePath,
-    }
-
-    );
-
+    });
 
     // 清空文本框和图像路径
     _textController.clear();
@@ -128,16 +116,15 @@ class _AddContentState extends State<AddContent> {
       imagePath = '';
     });
 
-
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => HomePageContent(
-          description: description,
-            price: price,
-            imagePath: imagePath,
-
-        ),
+        builder: (context) =>
+            HomePageContent(
+              description: description,
+              price: price,
+              imagePath: imagePath,
+            ),
       ),
     );
   }
@@ -146,117 +133,189 @@ class _AddContentState extends State<AddContent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('发布派单'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: Row(
           children: [
-            TextField(
-              controller: _textController,
-              decoration: const InputDecoration(
-                  hintText: '输入内容...',
-                  hintStyle: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey
-                  )
+            const Text(
+              '添加技能',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+                color: Colors.black,
               ),
             ),
-            SizedBox(height: 20),
+            const Spacer(),
+            ElevatedButton(
+                onPressed: () => _saveDataToDatabase(context),
 
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  '价格',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.green[400],
+                elevation: 0, // 去掉阴影效果
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32.0),
                 ),
-                GestureDetector(
-                  onTap: () async {
-                    final newPrice = await showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text(
-                            '输入价格',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          content: TextField(
-                            controller: _priceController,
-                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context, _priceController.text);
-                              },
-                              child: const Text('保存'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
+              ),
+              child: const Text(
+                '发布',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+        elevation: 0,
+        backgroundColor: Colors.grey[100],
+      ),
+      body: Container(
+        color: Colors.grey[100],
+        // 设置整个页面的背景颜色为白色
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+            children: [
 
-                    if (newPrice != null) {
-                      setState(() {
-                        price = newPrice;
-                      });
-                    }
+              SizedBox(height: 20),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Colors.white, // 设置灰色背景
+                  borderRadius: BorderRadius.circular(8.0), // 圆角
+                ),
+                child: TextField(
+                  controller: _textController,
+                  decoration: const InputDecoration(
+                    hintText: '输入内容...',
+                    hintStyle: TextStyle(fontSize: 16, color: Colors.grey),
+                    border: InputBorder.none, // 移除下划线
+                    contentPadding: EdgeInsets.all(0), // 移除默认的内边距
+                  ),
+                  maxLines: null, // 允许文本自动换行
+                ),
+              ),
+
+
+
+              const SizedBox(height: 10.0),
+
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft, // 左对齐
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green[300],
+                        onPrimary: Colors.white,
+                        elevation: 0, // 去掉阴影效果
+                        // 设置圆角按钮
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                      ),
+                      onPressed: _getImageFromGallery,
+                      child: Text('+添加图片'),
+                    ),
+                  ),
+                  const SizedBox(height: 8.0),
+                  Align(
+                    alignment: Alignment.centerLeft, // 左对齐
+                    child: imagePath.isNotEmpty
+                        ? Image.file(
+                      File(imagePath),
+                      height: 100.0,
+                      width: 100.0,
+                      fit: BoxFit.cover,
+                    )
+                        : Container(),
+                  ),
+                  const SizedBox(height: 16.0),
+                ],
+              ),
+
+              const SizedBox(height: 40.0),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              '价格',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            GestureDetector(
+              onTap: () async {
+                final newPrice = await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text(
+                        '输入价格',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      content: TextField(
+                        controller: _priceController,
+                        keyboardType:
+                        const TextInputType.numberWithOptions(decimal: true),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context, _priceController.text);
+                          },
+                          child: const Text('保存'),
+                        ),
+                      ],
+                    );
                   },
-                  child: Row(
+                );
+
+                if (newPrice != null) {
+                  setState(() {
+                    price = newPrice;
+                  });
+                }
+              },
+              child: Row(
+                children: [
+                  Text(
+                    '$price',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Row(
                     children: [
                       Text(
-                        '￥$price',
+                        '$price',
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.red,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(width: 8.0),
-                      const Text(
-                        '>',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                        ),
-                      ),
+
+                      Icon(Icons.chevron_right, color: Colors.grey),
                     ],
                   ),
-                ),
-              ],
-            ),
-
-
-            const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: _getImageFromGallery,
-              child:  Text('选择相册图片'),
-            ),
-            const SizedBox(height: 16.0),
-            imagePath.isNotEmpty
-                ? Image.file(
-              File(imagePath),
-              height: 100.0,
-              width: 100.0,
-              fit: BoxFit.cover,
-            )
-                : Container(),
-            const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () => _saveDataToDatabase(context),
-              child: Text('保存'),
+                ],
+              ),
             ),
           ],
         ),
+
+        ]
+      ),
       ),
     );
+  }
 
+  @override
+  void dispose() {
+    _priceController.dispose();
+    super.dispose();
   }
 }

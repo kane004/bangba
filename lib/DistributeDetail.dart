@@ -3,14 +3,10 @@ import 'package:kanetest/Distribute.dart';
 
 class DistributeDetail extends StatefulWidget {
 
+  final String text;
+  final String price;
 
-  const DistributeDetail({Key? key,
-
-
-
-
-  }) : super(key: key);
-
+  const DistributeDetail({required this.text, required this.price,Key? key}) : super(key: key);
 
 
 
@@ -43,14 +39,22 @@ class _WaitingToDoState extends State<DistributeDetail> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 child: Row(
                   children: [
-
-
+                    CircleAvatar(
+                      backgroundImage: AssetImage('images/image4.webp'),
+                      radius: 18,
+                    ),
                     const SizedBox(width: 12),
 
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        //引用昵称
+                        Text(
+                          '糊了糊了',
+                          style: TextStyle(
+                            fontSize: 16,
+                            //color: Colors.grey,
+                          ),
+                        ),
 
                         const SizedBox(height: 4),
                         //添加地址文本
@@ -102,28 +106,57 @@ class _WaitingToDoState extends State<DistributeDetail> {
                 ),
               ),
 
+              SizedBox(height: 30,),
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
 
+                        //引用文本描述
+                       widget.text,
+                        style: TextStyle(fontSize: 16,height: 1.8),
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Text(
+                            //引用价格
+                            '￥',
+                            style:
+                            TextStyle(fontSize: 12, color: Colors.red),
+                          ),
+                          Text(
+                            //引用价格
+                              '${widget.price}',
+                            style:
+                            TextStyle(fontSize: 20, color: Colors.red),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end, //文本水平对齐
 
-
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,//文本水平对齐
-
-                  children:[
-                    Text(
-                      '浏览量',
-                      style: TextStyle(fontSize: 14,color: Colors.grey),
-                    ),
-                    SizedBox(width: 10,),
-                    Text(
-                      '200',
-                      style: TextStyle(fontSize: 16,color: Colors.grey),
-                    ),
-
-                  ],
-                ),
+                        children: [
+                          Text(
+                            '浏览量',
+                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            '200',
+                            style: TextStyle(fontSize: 14, color: Colors.grey,height: 1.0),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
               ),
 
               const SizedBox(height: 20),
@@ -150,22 +183,30 @@ class _WaitingToDoState extends State<DistributeDetail> {
               //开始评论
 
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+               Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start, // 将行内元素垂直居上对齐
                   children: [
-
-                    const SizedBox(width: 10),
+                    CircleAvatar(
+                      backgroundImage: AssetImage('images/image3.webp'),
+                      radius: 18,
+                    ),
+                    SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+
                         Row(
                           children: [
-                            const SizedBox(width: 6),
-
-                            //作者
-
+                            Text(
+                              '大大方方',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            SizedBox(width: 6,),
                             Stack(
                               children: [
                                 Container(
@@ -196,14 +237,14 @@ class _WaitingToDoState extends State<DistributeDetail> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 4),
-                        const Align(
+                        SizedBox(height: 4),
+                        Align(
                           alignment: Alignment.topLeft, // 将这一行垂直居上对齐
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '要大学生哈，其他人不要，毕业证验证',
+                                '请问对大学生有什么要求，是个人就可以吗？',
                                 style: TextStyle(
                                   fontSize: 15,
                                 ),
@@ -243,6 +284,7 @@ class _WaitingToDoState extends State<DistributeDetail> {
                         ),
                       ],
                     ),
+
                   ],
                 ),
               ),

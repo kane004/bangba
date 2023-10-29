@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:kanetest/DistributeDetail.dart';
 
 import 'addDistribute.dart';
 // 导入数据库帮助类
@@ -8,8 +9,8 @@ import 'addDistribute.dart';
 class Distribute extends StatefulWidget {
   final String text;
   final String price;
-  final String imagePath;
-  const Distribute({required this.text, required this.price, required this.imagePath,Key? key}) : super(key: key);
+
+  const Distribute({required this.text, required this.price,Key? key}) : super(key: key);
 
   @override
   _DistributeState createState() => _DistributeState();
@@ -73,10 +74,18 @@ class _DistributeState extends State<Distribute> {
                   final item = _dataList[index];
                   final text = item['text'];
                   final price = item['price'].toString();
-                  final imagePath = item['imagePath'];
                   return GestureDetector(
                     onTap: () {
-                      // 处理项目点击事件
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              DistributeDetail(
+                                text:text,
+                                price:price,
+                              ),
+                        ),
+                      );
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -99,17 +108,6 @@ class _DistributeState extends State<Distribute> {
                             const SizedBox(height: 40.0),
                             Row(
                               children: [
-                                const SizedBox(width: 8.0),
-                                CircleAvatar(
-                                  backgroundImage: imagePath != null &&
-                                          imagePath.isNotEmpty
-                                      ? Image(image: Image.file(File(imagePath)).image).image
-                                  //没有数据显示默认头像
-                                      : AssetImage(
-                                          'images/image3.webp'),
-                                  radius: 13,
-                                ),
-                                SizedBox(width: 8),
                                 Text(
                                   price,
                                   style: const TextStyle(

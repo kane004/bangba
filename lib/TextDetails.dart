@@ -3,14 +3,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:kanetest/OrderPay.dart';
 
+import 'HomePage.dart';
+
 
 class TextDetails extends StatelessWidget {
+  final List<Map<String, dynamic>> _dataList = [];
   final String description;
   final String price;
   final String imagePath;
 
 
-   const TextDetails({
+    TextDetails({
     required this.description,
     required this.price,
     required this.imagePath,
@@ -59,9 +62,10 @@ class TextDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
+
                       //引用文本描述
                      '$description',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 16,height: 1.8),
                     ),
                     SizedBox(height: 10),
                     Row(
@@ -101,7 +105,8 @@ class TextDetails extends StatelessWidget {
                       ],
                     ),
                   ],
-                )),
+                )
+             ),
 
             const SizedBox(height: 48),
 
@@ -205,14 +210,8 @@ class TextDetails extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 30,),
 
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 3.0),
-            ),
-            const SizedBox(height: 4.0), //主图与顶部之间间距
 
 
           ],
@@ -291,5 +290,8 @@ class TextDetails extends StatelessWidget {
         ),
       ),
     );
+
   }
 }
+
+
